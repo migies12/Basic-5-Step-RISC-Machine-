@@ -1,4 +1,4 @@
-`define SW 0
+`define DECODE 0
 `define SLOADA_Rn 1
 `define SLOADB_Rm 2
 `define SLOADC 3
@@ -8,28 +8,44 @@
 `define SMOV_1_WRITE 7
 `define SWRITE_Rd 8
 `define SLOADS 9
+`define RST 10
+`define IF1 11
+`define IF2 12
+`define UpdatePC 13
+
+`define MREAD 1
+`define MNONE 2
+`define MWRITE 3
 
 `define SERR 10
 
-module cpu(clk, reset, s, load, in, out, N, V, Z, w);
+module cpu(clk, reset, read_data, mem_cmd, mem_addr, out);    //s and w are no longer inputs
 
- input  clk, reset, s, load;
- input  [15:0] in;
+ input  clk, reset;
+ reg load_ir;
+ input  [15:0] read_data;
  output reg [15:0] out;
- output reg N, V, Z, w;
+ output reg [1:0] mem_cmd;
+ output reg [8:0] mem_addr;
+ //output reg N, V, Z, w;    //I DONT KNOW IF WE NEED FLAGS AT ALL ANYMORE???
 
  reg [15:0] regOut, sximm5, sximm8;  
  reg [1:0] ALUop, shift, vsel;
  reg [2:0] readNum, writeNum, opcode, Rn, Rd, Rm;
  reg [3:0] ns;
- reg loada, loadb, loadc, write, loads,asel,bsel;
- wire [7:0] PC;
+ reg loada, loadb, loadc, write, loads,asel,bsel, reset_pc, load_pc, addr_sel, s, w;
+ reg [8:0] PC, next_PC;
  wire [15:0] m_data;
 
- vDFF #(16) instructionRegister (.clk(clk&load), .D(in), .Q(regOut));
+ vDFF #(16) instructionRegister (.clk(clk&load_ir), .D(read_data), .Q(regOut));
+
+ assign next_PC = reset_pc ? 9'b0 : PC + 1'b1;
+ assign mem_addr = addr_sel ? PC : {16{1'bz}};
+
+ vDFF #(16) programCounter (.clk(clk&load_pc), .D(next_PC), .Q(PC));
 
 
-instructionDecoder INSTRUCTIONS (.in(regOut), .opcode(opcode), .op(ALUop),
+instructionDecoder INSTRUCTIONS (.read_data(regOut), .opcode(opcode), .op(ALUop),
 								.sximm5(sximm5), .sximm8(sximm8), .shift(shift), .Rn(Rn), .Rd(Rd), .Rm(Rm));
 
 assign PC = 0;
@@ -44,10 +60,17 @@ datapath DP (.write(write), .vsel(vsel), .loada(loada), .loadb(loadb), .asel(ase
 always_ff@(posedge clk) begin
 
 if (reset) begin
-	ns = `SW;
+	ns = `RST;
 end else  begin
   case(ns)
-	`SW: if (s == 1) begin
+
+	`RST: ns <= `IF1;
+
+	`IF1: ns <= IF2;
+
+	`UpdatePC: ns <= `DECODE;
+
+	`DECODE: if (load_pc == 1) begin
 
 		if (opcode[1] == 1) begin 
 			if (ALUop == 2'b10) ns <= `SMOV_0_WRITE;
@@ -55,7 +78,7 @@ end else  begin
 			else ns <= `SERR;
 		end else ns <= `SLOADB_Rm;
 
-	    end else ns <= `SW;
+	    end else ns <= `IF1;
 
 	`SLOADB_Rm: begin 
 		case(ALUop) 
@@ -76,25 +99,25 @@ end else  begin
 		endcase
 	end
 
-	`SLOADS: ns <= `SW;
+	`SLOADS: ns <= `IF1;
 
 	`SLOADC: begin 
 		case(ALUop) 
 			2'b00: ns <= `SWRITE_Rd;
-			2'b01: ns <= `SW;
+			2'b01: ns <= `IF1;
 			2'b10: ns <= `SWRITE_Rd;
 			2'b11: ns <= `SWRITE_Rd;
 			default: ns <= `SERR;
 		endcase
 	end
 
-	`SWRITE_Rd: ns <= `SW;
+	`SWRITE_Rd: ns <= `IF1;
 
 	//special cases for the move statements
-	`SMOV_0_WRITE: ns <= `SW;
+	`SMOV_0_WRITE: ns <= `IF1;
 	`SMOV_1_LOADB: ns <= `SMOV_1_LOADC;
 	`SMOV_1_LOADC: ns <= `SMOV_1_WRITE;
-	`SMOV_1_WRITE: ns <= `SW;
+	`SMOV_1_WRITE: ns <= `IF1;
 
 	default: ns <= ns;
    endcase 
@@ -104,9 +127,79 @@ end //end always_ff
 
 //conditional always block for sending info to datapath 
 always@(ns) begin 
-	if(ns != `SW) w <= 1'b0;
-	else w <= 1'b1;
+	//if(ns != `SW) w <= 1'b0;    // no more s or SW
+	//else w <= 1'b1;
 	case(ns)
+
+		`RST: begin 
+			write <= 0;
+			loada <= 0;
+			loadb <= 0;
+			loadc <= 0;
+			loads <= 0;
+			asel <= 0;
+			bsel <= 0;
+			vsel <= 2'b00;
+			reset_pc <= 1;
+			load_pc <= 1;
+			addr_sel <= 0;
+			mem_cmd <= 0;
+			load_ir <= 0;
+			load_pc <= 0;
+
+		end
+
+		`IF1: begin 
+			write <= 0;
+			loada <= 0;
+			loadb <= 0;
+			loadc <= 0;
+			loads <= 0;
+			asel <= 0;
+			bsel <= 0;
+			vsel <= 2'b00;
+			reset_pc <= 0;
+			load_pc <= 0;
+			addr_sel <= 1;
+			mem_cmd <= `MREAD;
+			laod_ir <= 0;
+			load_pc <= 0;
+		end
+
+		`IF2: begin 
+			write <= 0;
+			loada <= 0;
+			loadb <= 0;
+			loadc <= 0;
+			loads <= 0;
+			asel <= 0;
+			bsel <= 0;
+			vsel <= 2'b00;
+			reset_pc <= 0;
+			load_pc <= 0;
+			addr_sel <= 1;
+			mem_cmd <= `MREAD;
+			load_ir <= 1;
+			load_pc <= 0;
+		end
+
+		`UpdatePC: begin 
+			write <= 0;
+			loada <= 0;
+			loadb <= 0;
+			loadc <= 0;
+			loads <= 0;
+			asel <= 0;
+			bsel <= 0;
+			vsel <= 2'b00;
+			reset_pc <= 0;
+			load_pc <= 0;
+			addr_sel <= 0;
+			mem_cmd <= 0;
+			load_ir <= 0;
+			load_pc <= 1;
+		end
+
 		////// MOV 0 Changes
 		`SMOV_0_WRITE: begin 
 			//set all loads to 0
@@ -232,8 +325,8 @@ always@(ns) begin
 			bsel <= 0;
 			vsel <= 2'b00;
 		end 
-		
-		`SW: begin 
+
+		`DECODE: begin 
 			write <= 0;
 			loada <= 0;
 			loadb <= 0;
@@ -242,7 +335,15 @@ always@(ns) begin
 			asel <= 0;
 			bsel <= 0;
 			vsel <= 2'b00;
-		end
+			reset_pc <= 0;
+			load_pc <= 0;
+			addr_sel <= 0;
+			mem_cmd <= 0;
+			laod_ir <= 0;
+			load_pc <= 0;
+		end 
+		
+		
 
 		default: write <= 0;
 	
