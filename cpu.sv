@@ -38,11 +38,12 @@ module cpu(clk, reset, read_data, mem_cmd, mem_addr, write_data);    //s and w a
 
  vDFF #(16) instructionRegister (.clk(clk&load_ir), .D(read_data), .Q(regOut));
  vDFF #(9) dataAdress (.clk(clk&load_addr), .D(write_data[8:0]), .Q(addr_out));
+ vDFF #(9) programCounter (.clk(clk&load_pc), .D(next_PC), .Q(PC));
 
  assign next_PC = reset_pc ? 9'b0 : PC + 1'b1;
  assign mem_addr = addr_sel ? PC : addr_out;
 
- vDFF #(9) programCounter (.clk(clk&load_pc), .D(next_PC), .Q(PC));
+ 
 
 
 instructionDecoder INSTRUCTIONS (.in(regOut), .opcode(opcode), .op(ALUop),
@@ -66,9 +67,11 @@ end else  begin
 
 	`IF1: ns <= `IF2;
 
+	`IF2: ns <= `UpdatePC;
+
 	`UpdatePC: ns <= `DECODE;
 
-	`DECODE: if (load_pc == 1) begin
+	`DECODE: 
 
 		if (opcode[1] == 1) begin 
 			if (ALUop == 2'b10) ns <= `SMOV_0_WRITE;
@@ -76,7 +79,6 @@ end else  begin
 			else ns <= `SERR;
 		end else ns <= `SLOADB_Rm;
 
-	    end else ns <= `IF1;
 
 	`SLOADB_Rm: begin 
 		case(ALUop) 
@@ -143,7 +145,7 @@ always@(ns) begin
 			addr_sel <= 0;
 			mem_cmd <= 0;
 			load_ir <= 0;
-			load_pc <= 0;
+			load_pc <= 1;
 
 		end
 
@@ -156,7 +158,6 @@ always@(ns) begin
 			asel <= 0;
 			bsel <= 0;
 			vsel <= 2'b00;
-			reset_pc <= 0;
 			load_pc <= 0;
 			addr_sel <= 1;
 			mem_cmd <= `MREAD;
@@ -173,8 +174,6 @@ always@(ns) begin
 			asel <= 0;
 			bsel <= 0;
 			vsel <= 2'b00;
-			reset_pc <= 0;
-			load_pc <= 0;
 			addr_sel <= 1;
 			mem_cmd <= `MREAD;
 			load_ir <= 1;
@@ -182,6 +181,7 @@ always@(ns) begin
 		end
 
 		`UpdatePC: begin 
+			
 			write <= 0;
 			loada <= 0;
 			loadb <= 0;
@@ -191,11 +191,11 @@ always@(ns) begin
 			bsel <= 0;
 			vsel <= 2'b00;
 			reset_pc <= 0;
-			load_pc <= 0;
 			addr_sel <= 0;
 			mem_cmd <= 0;
 			load_ir <= 0;
 			load_pc <= 1;
+			
 		end
 
 		////// MOV 0 Changes
