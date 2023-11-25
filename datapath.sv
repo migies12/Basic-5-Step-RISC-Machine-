@@ -5,7 +5,7 @@ module datapath(write, vsel, loada, loadb, asel, bsel, loadc, loads, PC,
 		 clk, readnum, writenum, shift, ALUop, Z_out, C, sximm8, sximm5, m_data, N_out, V_out);
 
   input [15:0] sximm8, m_data, sximm5;
-  input [7:0] PC;
+  input [8:0] PC;
   input clk, write, loada, loadb, asel, bsel, loadc, loads;
   input [2:0] writenum, readnum;
   input [1:0] shift, ALUop, vsel;

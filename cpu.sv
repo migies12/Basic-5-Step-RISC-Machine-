@@ -19,12 +19,12 @@
 
 `define SERR 10
 
-module cpu(clk, reset, read_data, mem_cmd, mem_addr, out);    //s and w are no longer inputs
+module cpu(clk, reset, read_data, mem_cmd, mem_addr, write_data);    //s and w are no longer inputs
 
  input  clk, reset;
  reg load_ir;
  input  [15:0] read_data;
- output reg [15:0] out;
+ output reg [15:0] write_data;
  output reg [1:0] mem_cmd;
  output reg [8:0] mem_addr;
  //output reg N, V, Z, w;    //I DONT KNOW IF WE NEED FLAGS AT ALL ANYMORE???
@@ -33,26 +33,24 @@ module cpu(clk, reset, read_data, mem_cmd, mem_addr, out);    //s and w are no l
  reg [1:0] ALUop, shift, vsel;
  reg [2:0] readNum, writeNum, opcode, Rn, Rd, Rm;
  reg [3:0] ns;
- reg loada, loadb, loadc, write, loads,asel,bsel, reset_pc, load_pc, addr_sel, s, w;
- reg [8:0] PC, next_PC;
- wire [15:0] m_data;
+ reg loada, loadb, loadc, write, loads,asel,bsel, reset_pc, load_pc, addr_sel, s, w, load_addr;
+ reg [8:0] PC, next_PC, addr_out;
 
  vDFF #(16) instructionRegister (.clk(clk&load_ir), .D(read_data), .Q(regOut));
+ vDFF #(9) dataAdress (.clk(clk&load_addr), .D(write_data[8:0]), .Q(addr_out));
 
  assign next_PC = reset_pc ? 9'b0 : PC + 1'b1;
- assign mem_addr = addr_sel ? PC : {16{1'bz}};
+ assign mem_addr = addr_sel ? PC : addr_out;
 
- vDFF #(16) programCounter (.clk(clk&load_pc), .D(next_PC), .Q(PC));
+ vDFF #(9) programCounter (.clk(clk&load_pc), .D(next_PC), .Q(PC));
 
 
-instructionDecoder INSTRUCTIONS (.read_data(regOut), .opcode(opcode), .op(ALUop),
+instructionDecoder INSTRUCTIONS (.in(regOut), .opcode(opcode), .op(ALUop),
 								.sximm5(sximm5), .sximm8(sximm8), .shift(shift), .Rn(Rn), .Rd(Rd), .Rm(Rm));
 
-assign PC = 0;
-assign m_data = 0;
 
 datapath DP (.write(write), .vsel(vsel), .loada(loada), .loadb(loadb), .asel(asel), .bsel(bsel), .loadc(loadc), .loads(loads), .PC(PC),
-	 .clk(clk), .readnum(readNum), .writenum(writeNum), .shift(shift), .ALUop(ALUop), .Z_out(Z), .C(out), .sximm8(sximm8), .sximm5(sximm5), .m_data(m_data),
+	 .clk(clk), .readnum(readNum), .writenum(writeNum), .shift(shift), .ALUop(ALUop), .Z_out(Z), .C(write_data), .sximm8(sximm8), .sximm5(sximm5), .m_data(read_data),
 	 .N_out(N), .V_out(V));
 
 
@@ -66,7 +64,7 @@ end else  begin
 
 	`RST: ns <= `IF1;
 
-	`IF1: ns <= IF2;
+	`IF1: ns <= `IF2;
 
 	`UpdatePC: ns <= `DECODE;
 
@@ -162,7 +160,7 @@ always@(ns) begin
 			load_pc <= 0;
 			addr_sel <= 1;
 			mem_cmd <= `MREAD;
-			laod_ir <= 0;
+			load_ir <= 0;
 			load_pc <= 0;
 		end
 
@@ -339,9 +337,35 @@ always@(ns) begin
 			load_pc <= 0;
 			addr_sel <= 0;
 			mem_cmd <= 0;
-			laod_ir <= 0;
+			load_ir <= 0;
 			load_pc <= 0;
 		end 
+
+		//LDR:
+		//load Rn
+		//Load Rn + sximm5 into C
+		//set mem_addr to out val
+		//Read From Memory
+		//Write to Rd using m_data
+
+		//STR:
+		//load Rn
+		//Load Rn + sximm5 into C
+		//set mem_addr to out val
+		// Load Rd into C
+		// Use Store into State vvv
+	
+
+		//ADD STATE Store INTO:
+		//load_addr = 1;
+		//addr_select = 0;
+		//mem_command = `MWRITE
+		
+
+		//ADD STATE READ FROM MEMORY
+		//load_addr = 1;
+		//addr_select = 0;
+		//mem_command = `MREAD
 		
 		
 

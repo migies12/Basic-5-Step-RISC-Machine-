@@ -1,7 +1,7 @@
 module RAM (clk, read_adress, write_adress, write, din, dout);
 
-    parameter data_width = 32;
-    parameter addr_width = 4;
+    parameter data_width = 16;
+    parameter addr_width = 8;
     parameter filename = "data.txt";
 
     input clk;
