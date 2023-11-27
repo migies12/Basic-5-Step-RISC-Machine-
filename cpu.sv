@@ -171,8 +171,6 @@ always@(ns) begin
 			asel <= 0;
 			bsel <= 0;
 			vsel <= 2'b00;
-			reset_pc <= 1;
-			load_pc <= 1;
 			addr_sel <= 0;
 			mem_cmd <= `MREAD;
 			load_ir <= 0;
@@ -189,7 +187,6 @@ always@(ns) begin
 			asel <= 0;
 			bsel <= 0;
 			vsel <= 2'b00;
-			load_pc <= 0;
 			addr_sel <= 1;
 			mem_cmd <= `MREAD;
 			load_ir <= 0;
@@ -241,7 +238,6 @@ always@(ns) begin
 			loadb <= 0;
 			loadc <= 0;
 			loads <= 0;
-
 			asel <= 0;
 			bsel <= 0;
 			//choose 8xsimm
