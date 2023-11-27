@@ -27,7 +27,7 @@ module lab7_top(KEY,SW,LEDR,HEX0,HEX1,HEX2,HEX3,HEX4,HEX5);
     assign msel_a = mem_cmd == `MREAD;
     assign msel_b = mem_addr[8] == 1'b0;
     assign msel = msel_a && msel_b;
-    assign write = ((mem_cmd == `MWRITE) && msel);
+    assign write = ((mem_cmd == `MWRITE) && msel_b);
 
     assign read_data = msel ? dout : {16{1'bz}};
     

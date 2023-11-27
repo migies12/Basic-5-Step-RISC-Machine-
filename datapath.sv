@@ -26,18 +26,18 @@ module datapath(write, vsel, loada, loadb, asel, bsel, loadc, loads, PC,
 			 .write(write), .readnum(readnum), .clk(clk), .data_out(data_out));
 
   //vDFF A represents flip flop A, that you can load a register value to.
-  vDFF #(16) A_flip (.clk(clk & loada), .D(data_out), .Q(A_out));
+  vDFFenable #(16) A_flip (.clk(clk),.enable(loada), .D(data_out), .Q(A_out));
 
   //vDFF B represents flip flop B, that you can load a register value to.
-  vDFF #(16) B_flip (.clk(clk & loadb), .D(data_out), .Q(B_out));
+  vDFFenable #(16) B_flip (.clk(clk), .enable(loadb), .D(data_out), .Q(B_out));
 
   //vDFF C represents flip flop C, that you can load the value computer by the ALU module to.
-  vDFF #(16) C_flip (.clk(clk & loadc), .D(ALU_out), .Q(C));
+  vDFFenable #(16) C_flip (.clk(clk), .enable(loadc), .D(ALU_out), .Q(C));
 
   //vDFF status loads one bit connected to reg Z into flipflip status when loads is high.
-  vDFF Z_flip (.clk(clk & loads), .D(Z), .Q(Z_out));
-  vDFF V_flip (.clk(clk & loads), .D(N), .Q(N_out));
-  vDFF N_flip (.clk(clk & loads), .D(V), .Q(V_out));
+  vDFFenable Z_flip (.clk(clk), .enable(loads), .D(Z), .Q(Z_out));
+  vDFFenable V_flip (.clk(clk), .enable(loads), .D(N), .Q(N_out));
+  vDFFenable N_flip (.clk(clk), .enable(loads), .D(V), .Q(V_out));
 
   //Shifter module takes output of vDFF B and otuputs to sout depending on what functionality (shift) was inputed
   shifter shifter (.in(B_out), .shift(shift), .sout(sout));

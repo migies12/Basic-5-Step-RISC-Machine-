@@ -16,12 +16,14 @@
 `define LDR_LOAD_RN_A 15
 `define LDR_LOADC 16
 `define LDR_LOAD_ADDY 17
-`define MEMORY_CLOCK 18
+`define LDR_MEMORY_CLOCK 18
 `define STR_LOAD_RN_A 19
 `define STR_LOADC 20
 `define STR_LOAD_ADDY 21
 `define STR_LOADB 22
 `define STR_LOADC_2 23
+`define LDR_WRITE_Rd 24
+`define STR_MEMORY_CLOCK 25
 
 `define MREAD 1
 `define MNONE 2
@@ -52,6 +54,7 @@ module cpu(clk, reset, read_data, mem_cmd, mem_addr, write_data);    //s and w a
 
  assign next_PC = reset_pc ? 9'b0 : PC + 1'b1;
  assign mem_addr = addr_sel ? PC : addr_out;
+ 
 
 instructionDecoder INSTRUCTIONS (.in(regOut), .opcode(opcode), .op(ALUop),
 								.sximm5(sximm5), .sximm8(sximm8), .shift(shift), .Rn(Rn), .Rd(Rd), .Rm(Rm));
@@ -97,7 +100,11 @@ end else  begin
 
 	`LDR_LOADC: ns <= `LDR_LOAD_ADDY;
 
-	`LDR_LOAD_ADDY: ns <= `MEMORY_CLOCK;
+	`LDR_LOAD_ADDY: ns <= `LDR_MEMORY_CLOCK;
+
+	`LDR_MEMORY_CLOCK: ns <= `LDR_WRITE_Rd;
+
+	`LDR_WRITE_Rd: ns <= `IF1;
 
 	`STR_LOAD_RN_A: ns <= `STR_LOADC;
 
@@ -107,9 +114,9 @@ end else  begin
 
 	`STR_LOADB: ns <= `STR_LOADC_2;
 
-	`STR_LOADC_2: ns <= `MEMORY_CLOCK;
+	`STR_LOADC_2: ns <= `STR_MEMORY_CLOCK;
 
-	`MEMORY_CLOCK: ns <= `IF1;
+	`STR_MEMORY_CLOCK: ns <= `IF1;
 
 	`SLOADB_Rm: begin 
 		case(ALUop) 
@@ -423,13 +430,14 @@ always@(ns) begin
 			vsel <= 2'b00;
 			reset_pc <= 0;
 			load_pc <= 0;
-			addr_sel <= 1;
+			addr_sel <= 0;
 			mem_cmd <= 0;
 			load_ir <= 0;
 			load_pc <= 0;
+			load_addr <= 0;
 		end 
 
-		//SHOULD I CHNAGE ADDY SELECT HERE OR IN MEMORY CLK
+		//SHOULD I CHANGE ADDY SELECT HERE OR IN MEMORY CLK
 		`LDR_LOAD_ADDY: begin 
 			write <= 0;
 			loada <= 0;
@@ -440,14 +448,15 @@ always@(ns) begin
 			bsel <= 1;
 			vsel <= 2'b00;
 			reset_pc <= 0;
+			load_addr <= 1;
 			load_pc <= 0;
-			addr_sel <= 1;
+			addr_sel <= 0;
 			mem_cmd <= `MREAD;
 			load_ir <= 0;
 			load_pc <= 0;
 		end 
 
-		`MEMORY_CLOCK: begin
+		`LDR_MEMORY_CLOCK: begin
     		write <= 0;
     		loada <= 0;
     		loadb <= 0;
@@ -462,6 +471,23 @@ always@(ns) begin
     		mem_cmd <= `MREAD;
     		load_ir <= 0;
     		load_pc <= 0;
+			load_addr <= 0;
+		end
+
+		`LDR_WRITE_Rd: begin
+			 //Write into Rd
+			mem_cmd <= `MREAD;
+			write <= 1;
+			load_pc <= 0;
+			writeNum <= Rd;
+			loada <= 0;
+			loadb <= 0;
+			loadc <= 0;
+			loads <= 0;
+			asel <= 0;
+			bsel <= 0;
+			//choose C output
+			vsel <= 2'b11;
 		end
 
 		`STR_LOAD_RN_A: begin 
@@ -494,14 +520,16 @@ always@(ns) begin
 			vsel <= 2'b00;
 			reset_pc <= 0;
 			load_pc <= 0;
-			addr_sel <= 1;
+			addr_sel <= 0;
 			mem_cmd <= 0;
 			load_ir <= 0;
 			load_pc <= 0;
+			load_addr = 0;
 		end
 		//should we keep program counter counting here
 		`STR_LOAD_ADDY: begin 
 			write <= 0;
+			load_addr = 1;
 			loada <= 0;
 			loadb <= 0;
 			loadc <= 0;
@@ -511,7 +539,7 @@ always@(ns) begin
 			vsel <= 2'b00;
 			reset_pc <= 0;
 			load_pc <= 0;
-			addr_sel <= 1;
+			addr_sel <= 0;
 			mem_cmd <= `MWRITE;
 			load_ir <= 0;
 			load_pc <= 0;
@@ -519,17 +547,18 @@ always@(ns) begin
 
 		`STR_LOADB: begin 
 			readNum <= Rd;
+			load_addr = 0;
 			write <= 0;
 			loada <= 0;
 			loadb <= 1;
 			loadc <= 0;
 			loads <= 0;
-			asel <= 0;
+			asel <= 1;
 			bsel <= 0;
 			vsel <= 2'b00;
 			reset_pc <= 0;
 			load_pc <= 0;
-			addr_sel <= 1;
+			addr_sel <= 0;
 			mem_cmd <= 0;
 			load_ir <= 0;
 			load_pc <= 0;
@@ -537,21 +566,39 @@ always@(ns) begin
 
 		`STR_LOADC_2: begin 
 			readNum <= Rn;
+			load_addr = 0;
 			write <= 0;
 			loada <= 0;
 			loadb <= 0;
 			loadc <= 1;
 			loads <= 0;
-			asel <= 0;
+			asel <= 1;
 			bsel <= 0;
 			vsel <= 2'b00;
 			reset_pc <= 0;
 			load_pc <= 0;
-			addr_sel <= 1;
-			mem_cmd <= 0;
+			addr_sel <= 0;
+			mem_cmd <= `MWRITE;
 			load_ir <= 0;
 			load_pc <= 0;
 		end		
+
+		`STR_MEMORY_CLOCK: begin
+    		write <= 0;
+    		loada <= 0;
+    		loadb <= 0;
+    		loadc <= 0;
+    		loads <= 0;
+    		asel <= 0;
+    		bsel <= 0;
+    		vsel <= 2'b00;
+    		reset_pc <= 0;
+    		load_pc <= 0;
+    		addr_sel <= 0;
+    		mem_cmd <= `MWRITE;
+    		load_ir <= 0;
+    		load_pc <= 0;
+		end
 
 		default: write <= 0;
 	
