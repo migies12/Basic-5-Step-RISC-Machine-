@@ -46,9 +46,9 @@ module cpu(clk, reset, read_data, mem_cmd, mem_addr, write_data);    //s and w a
  reg loada, loadb, loadc, write, loads,asel,bsel, reset_pc, load_pc, addr_sel, s, w, load_addr;
  reg [8:0] PC, next_PC, addr_out;
 
- vDFF #(16) instructionRegister (.clk(clk&load_ir), .D(read_data), .Q(regOut));
- vDFF #(9) dataAdress (.clk(clk&load_addr), .D(write_data[8:0]), .Q(addr_out));
- vDFF #(9) programCounter (.clk(clk&load_pc), .D(next_PC), .Q(PC));
+ vDFFenable #(16) instructionRegister (.clk(clk), .enable(load_ir), .D(read_data), .Q(regOut));
+ vDFFenable #(9) dataAdress (.clk(clk),.enable(load_addr), .D(write_data[8:0]), .Q(addr_out));
+ vDFFenable #(9) programCounter (.clk(clk),.enable(load_pc),.D(next_PC), .Q(PC));
 
  assign next_PC = reset_pc ? 9'b0 : PC + 1'b1;
  assign mem_addr = addr_sel ? PC : addr_out;
@@ -66,7 +66,7 @@ datapath DP (.write(write), .vsel(vsel), .loada(loada), .loadb(loadb), .asel(ase
 always_ff@(posedge clk) begin
 
 if (reset) begin
-	ns = `RST; //do we need this to be non blocking or do we want it to happen all in one clock cycle?
+	ns <= `RST; //do we need this to be non blocking or do we want it to happen all in one clock cycle?
 end else  begin
   case(ns)
 	//loop back until reset is hit!!
@@ -152,14 +152,13 @@ end else  begin
 
 	default: ns <= ns;
    endcase 
+
 end //else
 
 end //end always_ff
 
 //conditional always block for sending info to datapath 
 always@(ns) begin 
-	//if(ns != `SW) w <= 1'b0;    // no more s or SW
-	//else w <= 1'b1;
 	case(ns)
 		`RST: begin 
 			reset_pc <= 1;
@@ -223,8 +222,7 @@ always@(ns) begin
 			addr_sel <= 0;
 			mem_cmd <= 0;
 			load_ir <= 0;
-			load_pc <= 1;
-			
+			load_pc = 1;
 		end
 
 		////// MOV 0 Changes
