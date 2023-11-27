@@ -11,8 +11,6 @@ module RAM (clk, read_adress, write_adress, write, din, dout);
 
     output reg [data_width-1:0] dout;
 
-
-
     reg [data_width-1:0] mem [2**addr_width-1:0];
 
     initial $readmemb(filename, mem);
@@ -22,8 +20,5 @@ module RAM (clk, read_adress, write_adress, write, din, dout);
             mem[write_adress] <= din;
         dout <= mem[read_adress];
     end
-
-
-
 
 endmodule

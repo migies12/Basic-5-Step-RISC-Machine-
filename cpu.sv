@@ -12,6 +12,16 @@
 `define IF1 11
 `define IF2 12
 `define UpdatePC 13
+`define HALT 14
+`define LDR_LOAD_RN_A 15
+`define LDR_LOADC 16
+`define LDR_LOAD_ADDY 17
+`define MEMORY_CLOCK 18
+`define STR_LOAD_RN_A 19
+`define STR_LOADC 20
+`define STR_LOAD_ADDY 21
+`define STR_LOADB 22
+`define STR_LOADC_2 23
 
 `define MREAD 1
 `define MNONE 2
@@ -32,7 +42,7 @@ module cpu(clk, reset, read_data, mem_cmd, mem_addr, write_data);    //s and w a
  reg [15:0] regOut, sximm5, sximm8;  
  reg [1:0] ALUop, shift, vsel;
  reg [2:0] readNum, writeNum, opcode, Rn, Rd, Rm;
- reg [3:0] ns;
+ reg [5:0] ns;
  reg loada, loadb, loadc, write, loads,asel,bsel, reset_pc, load_pc, addr_sel, s, w, load_addr;
  reg [8:0] PC, next_PC, addr_out;
 
@@ -42,9 +52,6 @@ module cpu(clk, reset, read_data, mem_cmd, mem_addr, write_data);    //s and w a
 
  assign next_PC = reset_pc ? 9'b0 : PC + 1'b1;
  assign mem_addr = addr_sel ? PC : addr_out;
-
- 
-
 
 instructionDecoder INSTRUCTIONS (.in(regOut), .opcode(opcode), .op(ALUop),
 								.sximm5(sximm5), .sximm8(sximm8), .shift(shift), .Rn(Rn), .Rd(Rd), .Rm(Rm));
@@ -59,9 +66,11 @@ datapath DP (.write(write), .vsel(vsel), .loada(loada), .loadb(loadb), .asel(ase
 always_ff@(posedge clk) begin
 
 if (reset) begin
-	ns = `RST;
+	ns = `RST; //do we need this to be non blocking or do we want it to happen all in one clock cycle?
 end else  begin
   case(ns)
+	//loop back until reset is hit!!
+	`HALT: ns <= `HALT;
 
 	`RST: ns <= `IF1;
 
@@ -71,14 +80,36 @@ end else  begin
 
 	`UpdatePC: ns <= `DECODE;
 
-	`DECODE: 
+	`DECODE: begin
 
-		if (opcode[1] == 1) begin 
+		if (opcode == 3'b110) begin 
 			if (ALUop == 2'b10) ns <= `SMOV_0_WRITE;
 			else if (ALUop == 2'b00) ns <= `SMOV_1_LOADB;
 			else ns <= `SERR;
-		end else ns <= `SLOADB_Rm;
+		end 
+		else if (opcode == 3'b111) ns <= `HALT;
+		else if (opcode == 3'b011) ns <= `LDR_LOAD_RN_A;
+		else if (opcode == 3'b100) ns <= `STR_LOAD_RN_A;
+		else ns <= `SLOADB_Rm;
+	end
 
+	`LDR_LOAD_RN_A: ns <= `LDR_LOADC;
+
+	`LDR_LOADC: ns <= `LDR_LOAD_ADDY;
+
+	`LDR_LOAD_ADDY: ns <= `MEMORY_CLOCK;
+
+	`STR_LOAD_RN_A: ns <= `STR_LOADC;
+
+	`STR_LOADC: ns <= `STR_LOAD_ADDY;
+
+	`STR_LOAD_ADDY: ns <= `STR_LOADB;
+
+	`STR_LOADB: ns <= `STR_LOADC_2;
+
+	`STR_LOADC_2: ns <= `MEMORY_CLOCK;
+
+	`MEMORY_CLOCK: ns <= `RST;
 
 	`SLOADB_Rm: begin 
 		case(ALUop) 
@@ -335,39 +366,189 @@ always@(ns) begin
 			vsel <= 2'b00;
 			reset_pc <= 0;
 			load_pc <= 0;
-			addr_sel <= 0;
+			addr_sel <= 1;
 			mem_cmd <= 0;
 			load_ir <= 0;
 			load_pc <= 0;
 		end 
 
-		//LDR:
-		//load Rn
-		//Load Rn + sximm5 into C
-		//set mem_addr to out val
-		//Read From Memory
-		//Write to Rd using m_data
+		`HALT: begin
+			write <= 0;
+			loada <= 0;
+			loadb <= 0;
+			loadc <= 0;
+			loads <= 0;
+			asel <= 0;
+			bsel <= 0;
+			vsel <= 2'b00;
+			reset_pc <= 0;
+			load_pc <= 0;
+			addr_sel <= 1;
+			mem_cmd <= 0;
+			load_ir <= 0;
+			load_pc <= 0;
+		end
 
-		//STR:
-		//load Rn
-		//Load Rn + sximm5 into C
-		//set mem_addr to out val
-		// Load Rd into C
-		// Use Store into State vvv
-	
+		`LDR_LOAD_RN_A: begin 
+			readNum <= Rn;
+			write <= 0;
+			loada <= 1;
+			loadb <= 0;
+			loadc <= 0;
+			loads <= 0;
+			asel <= 0;
+			bsel <= 1;
+			vsel <= 2'b00;
+			reset_pc <= 0;
+			load_pc <= 0;
+			addr_sel <= 1;
+			mem_cmd <= 0;
+			load_ir <= 0;
+			load_pc <= 0;
+		end
 
-		//ADD STATE Store INTO:
-		//load_addr = 1;
-		//addr_select = 0;
-		//mem_command = `MWRITE
-		
+		`LDR_LOADC: begin 
+			readNum <= Rn;
+			write <= 0;
+			loada <= 0;
+			loadb <= 0;
+			loadc <= 1;
+			loads <= 0;
+			asel <= 0;
+			bsel <= 1;
+			vsel <= 2'b00;
+			reset_pc <= 0;
+			load_pc <= 0;
+			addr_sel <= 1;
+			mem_cmd <= 0;
+			load_ir <= 0;
+			load_pc <= 0;
+		end 
 
-		//ADD STATE READ FROM MEMORY
-		//load_addr = 1;
-		//addr_select = 0;
-		//mem_command = `MREAD
-		
-		
+		//SHOULD I CHNAGE ADDY SELECT HERE OR IN MEMORY CLK
+		`LDR_LOAD_ADDY: begin 
+			write <= 0;
+			loada <= 0;
+			loadb <= 0;
+			loadc <= 0;
+			loads <= 0;
+			asel <= 0;
+			bsel <= 1;
+			vsel <= 2'b00;
+			reset_pc <= 0;
+			load_pc <= 0;
+			addr_sel <= 1;
+			mem_cmd <= `MREAD;
+			load_ir <= 0;
+			load_pc <= 0;
+		end 
+
+		`MEMORY_CLOCK: begin
+    		write <= 0;
+    		loada <= 0;
+    		loadb <= 0;
+    		loadc <= 0;
+    		loads <= 0;
+    		asel <= 0;
+    		bsel <= 0;
+    		vsel <= 2'b00;
+    		reset_pc <= 0;
+    		load_pc <= 0;
+    		addr_sel <= 0;
+    		mem_cmd <= `MREAD;
+    		load_ir <= 0;
+    		load_pc <= 0;
+		end
+
+		`STR_LOAD_RN_A: begin 
+			readNum <= Rn;
+			write <= 0;
+			loada <= 1;
+			loadb <= 0;
+			loadc <= 0;
+			loads <= 0;
+			asel <= 0;
+			bsel <= 1;
+			vsel <= 2'b00;
+			reset_pc <= 0;
+			load_pc <= 0;
+			addr_sel <= 1;
+			mem_cmd <= 0;
+			load_ir <= 0;
+			load_pc <= 0;
+		end
+
+	    `STR_LOADC: begin 
+			readNum <= Rn;
+			write <= 0;
+			loada <= 0;
+			loadb <= 0;
+			loadc <= 1;
+			loads <= 0;
+			asel <= 0;
+			bsel <= 1;
+			vsel <= 2'b00;
+			reset_pc <= 0;
+			load_pc <= 0;
+			addr_sel <= 1;
+			mem_cmd <= 0;
+			load_ir <= 0;
+			load_pc <= 0;
+		end
+		//should we keep program counter counting here
+		`STR_LOAD_ADDY: begin 
+			write <= 0;
+			loada <= 0;
+			loadb <= 0;
+			loadc <= 0;
+			loads <= 0;
+			asel <= 0;
+			bsel <= 1;
+			vsel <= 2'b00;
+			reset_pc <= 0;
+			load_pc <= 0;
+			addr_sel <= 1;
+			mem_cmd <= `MWRITE;
+			load_ir <= 0;
+			load_pc <= 0;
+		end
+
+		`STR_LOADB: begin 
+			readNum <= Rd;
+			write <= 0;
+			loada <= 0;
+			loadb <= 1;
+			loadc <= 0;
+			loads <= 0;
+			asel <= 0;
+			bsel <= 0;
+			shift <= 0;
+			vsel <= 2'b00;
+			reset_pc <= 0;
+			load_pc <= 0;
+			addr_sel <= 1;
+			mem_cmd <= 0;
+			load_ir <= 0;
+			load_pc <= 0;
+		end
+
+		`STR_LOADC_2: begin 
+			readNum <= Rn;
+			write <= 0;
+			loada <= 0;
+			loadb <= 0;
+			loadc <= 1;
+			loads <= 0;
+			asel <= 0;
+			bsel <= 0;
+			vsel <= 2'b00;
+			reset_pc <= 0;
+			load_pc <= 0;
+			addr_sel <= 1;
+			mem_cmd <= 0;
+			load_ir <= 0;
+			load_pc <= 0;
+		end		
 
 		default: write <= 0;
 	
