@@ -109,7 +109,7 @@ end else  begin
 
 	`STR_LOADC_2: ns <= `MEMORY_CLOCK;
 
-	`MEMORY_CLOCK: ns <= `RST;
+	`MEMORY_CLOCK: ns <= `IF1;
 
 	`SLOADB_Rm: begin 
 		case(ALUop) 
@@ -161,8 +161,8 @@ always@(ns) begin
 	//if(ns != `SW) w <= 1'b0;    // no more s or SW
 	//else w <= 1'b1;
 	case(ns)
-
 		`RST: begin 
+			reset_pc <= 1;
 			write <= 0;
 			loada <= 0;
 			loadb <= 0;
@@ -174,13 +174,13 @@ always@(ns) begin
 			reset_pc <= 1;
 			load_pc <= 1;
 			addr_sel <= 0;
-			mem_cmd <= 0;
+			mem_cmd <= `MREAD;
 			load_ir <= 0;
 			load_pc <= 1;
-
 		end
 
 		`IF1: begin 
+			reset_pc <= 0;
 			write <= 0;
 			loada <= 0;
 			loadb <= 0;
@@ -197,6 +197,7 @@ always@(ns) begin
 		end
 
 		`IF2: begin 
+			reset_pc <= 0;
 			write <= 0;
 			loada <= 0;
 			loadb <= 0;
@@ -212,7 +213,7 @@ always@(ns) begin
 		end
 
 		`UpdatePC: begin 
-			
+			reset_pc <= 0;
 			write <= 0;
 			loada <= 0;
 			loadb <= 0;
@@ -232,6 +233,7 @@ always@(ns) begin
 		////// MOV 0 Changes
 		`SMOV_0_WRITE: begin 
 			//set all loads to 0
+			load_pc <= 0;
 			write <= 1;
 			writeNum <= Rn;
 			readNum <= Rn;
@@ -251,6 +253,7 @@ always@(ns) begin
 		//load Rm into b and clk 
 		`SMOV_1_LOADB: begin 
 			//Read from Rm
+			load_pc <= 0;
 			write <= 0;
 			readNum <= Rm;
 			loada <= 0;
@@ -266,6 +269,7 @@ always@(ns) begin
 
 		`SMOV_1_LOADC: begin 
 			//Read from Rm
+			load_pc <= 0;
 			write <= 0;
 			loada <= 0;
 			loadb <= 0;
@@ -281,6 +285,7 @@ always@(ns) begin
 		`SMOV_1_WRITE: begin
 			//set all loads to 0
 			//Write into Rd
+			load_pc <= 0;
 			write <= 1;
 			writeNum <= Rd;
 			loada <= 0;
@@ -299,6 +304,7 @@ always@(ns) begin
 		//////ALU 0 Instructions
 		`SLOADB_Rm: begin 
 			write <= 0;
+			load_pc <= 0;
 			readNum <= Rm;
 			loada <= 0;
 			loadb <= 1;
@@ -310,6 +316,7 @@ always@(ns) begin
 
 		`SLOADA_Rn: begin 
 			write <= 0;
+			load_pc <= 0;
 			readNum <= Rn;
 			loada <= 1;
 			loadb <= 0;
@@ -322,6 +329,7 @@ always@(ns) begin
 
 		`SLOADC: begin 
 			write <= 0;
+			load_pc <= 0;
 			loada <= 0;
 			loadb <= 0;
 			loadc <= 1;
@@ -333,6 +341,7 @@ always@(ns) begin
 		`SWRITE_Rd: begin 
 			//Write into Rd
 			write <= 1;
+			load_pc <= 0;
 			writeNum <= Rd;
 			loada <= 0;
 			loadb <= 0;
@@ -346,6 +355,7 @@ always@(ns) begin
 		
 		`SLOADS: begin 
 			write <= 0;
+			load_pc <= 0;
 			loada <= 0;
 			loadb <= 0;
 			loadc <= 0;
@@ -522,7 +532,6 @@ always@(ns) begin
 			loads <= 0;
 			asel <= 0;
 			bsel <= 0;
-			shift <= 0;
 			vsel <= 2'b00;
 			reset_pc <= 0;
 			load_pc <= 0;

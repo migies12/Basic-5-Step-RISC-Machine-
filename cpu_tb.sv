@@ -13,7 +13,7 @@ module cpu_tb();
  wire [1:0] sim_mem_cmd;
  wire [8:0] sim_mem_addr;
 
-cpu cpu(.clk(sim_clk), .reset(sim_reset), .read_data(sim_read_data), .mem_cmd(sim_mem_cmd), .mem_addr(sim_mem_addr), .write_data(sim_write_data));
+CPU cpu(.clk(sim_clk), .reset(sim_reset), .read_data(sim_read_data), .mem_cmd(sim_mem_cmd), .mem_addr(sim_mem_addr), .write_data(sim_write_data));
 initial begin
     sim_clk = 0; #5;
     forever begin
@@ -64,8 +64,6 @@ sim_read_data= 16'b1010000101001000;
 $display("Test 3 - Attempt ot run command %b - TEST 3: ADD R2, R1, R0, LSL#1; -OUTPUT: %b  -Expected: %b", sim_read_data, sim_write_data, 16'b0);
 	
 	if(~(sim_write_data == 16'b0)) err = 1;
-
-
 
 
 $stop;
