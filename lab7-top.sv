@@ -20,16 +20,11 @@ module lab7_top(KEY,SW,LEDR,HEX0,HEX1,HEX2,HEX3,HEX4,HEX5);
     reg [15:0] read_data, write_data, mdata;
 
     cpu CPU(.clk(clk), .reset(reset), .read_data(read_data), .mem_cmd(mem_cmd), .mem_addr(mem_addr), .write_data(write_data));
-<<<<<<< HEAD
     RAM MEM (.clk(clk), .read_adress(mem_addr[7:0]), .write_adress(mem_addr[7:0]) , .write(write), .din(write_data), .dout(dout));
 
     switchReceiver switches(.SW(SW[7:0]), .mem_cmd(mem_cmd), .mem_addr(mem_addr), .read_data(read_data));
     LEDout LEDs(.LEDR(LEDR), .mem_cmd(mem_cmd), .mem_addr(mem_addr), .write_data(write_data));
-
-=======
-    RAM MEM(.clk(clk), .read_adress(mem_addr[7:0]), .write_adress(mem_addr[7:0]) , .write(write), .din(write_data), .dout(dout));
  
->>>>>>> 6a22b9d12ee457cec807aa586ab90fd99b8c9a3a
     assign clk = ~KEY[0];
     assign reset = ~KEY[1];
     assign msel_a = mem_cmd == `MREAD;
@@ -38,11 +33,6 @@ module lab7_top(KEY,SW,LEDR,HEX0,HEX1,HEX2,HEX3,HEX4,HEX5);
     assign write = ((mem_cmd == `MWRITE) && msel_b);
 
     assign read_data = msel ? dout : {16{1'bz}};
-
-    
-
-
-    
     
 endmodule
 
@@ -84,14 +74,10 @@ input [8:0] mem_addr;
 output reg [7:0] LEDR;
 input [15:0] write_data;
 
-
 reg write;
 
 assign write = mem_addr == 9'h100 && mem_cmd == `MWRITE;
 
 vDFFenable LED_V(.clk(clk), .enable(write), .Q(write_data), .D(LEDR));
-
-
-
 
 endmodule

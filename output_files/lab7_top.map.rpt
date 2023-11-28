@@ -1,0 +1,1254 @@
+Analysis & Synthesis report for lab7_top
+Mon Nov 27 20:23:36 2023
+Quartus Prime Version 22.1std.2 Build 922 07/20/2023 SC Lite Edition
+
+
+---------------------
+; Table of Contents ;
+---------------------
+  1. Legal Notice
+  2. Analysis & Synthesis Summary
+  3. Analysis & Synthesis Settings
+  4. Parallel Compilation
+  5. Analysis & Synthesis Source Files Read
+  6. Analysis & Synthesis Resource Usage Summary
+  7. Analysis & Synthesis Resource Utilization by Entity
+  8. State Machine - |lab7_top|cpu:CPU|ns
+  9. Registers Removed During Synthesis
+ 10. Removed Registers Triggering Further Register Optimizations
+ 11. General Register Statistics
+ 12. Registers Packed Into Inferred Megafunctions
+ 13. Multiplexer Restructuring Statistics (Restructuring Performed)
+ 14. Source assignments for RAM:MEM|altsyncram:mem_rtl_0|altsyncram_65r1:auto_generated
+ 15. Parameter Settings for User Entity Instance: cpu:CPU|vDFFenable:instructionRegister
+ 16. Parameter Settings for User Entity Instance: cpu:CPU|vDFFenable:dataAdress
+ 17. Parameter Settings for User Entity Instance: cpu:CPU|vDFFenable:programCounter
+ 18. Parameter Settings for User Entity Instance: cpu:CPU|datapath:DP|vDFFenable:A_flip
+ 19. Parameter Settings for User Entity Instance: cpu:CPU|datapath:DP|vDFFenable:B_flip
+ 20. Parameter Settings for User Entity Instance: cpu:CPU|datapath:DP|vDFFenable:C_flip
+ 21. Parameter Settings for User Entity Instance: cpu:CPU|datapath:DP|vDFFenable:Z_flip
+ 22. Parameter Settings for User Entity Instance: cpu:CPU|datapath:DP|vDFFenable:V_flip
+ 23. Parameter Settings for User Entity Instance: cpu:CPU|datapath:DP|vDFFenable:N_flip
+ 24. Parameter Settings for User Entity Instance: RAM:MEM
+ 25. Parameter Settings for User Entity Instance: LEDout:LEDs|vDFFenable:LED_V
+ 26. Parameter Settings for Inferred Entity Instance: RAM:MEM|altsyncram:mem_rtl_0
+ 27. altsyncram Parameter Settings by Entity Instance
+ 28. Port Connectivity Checks: "LEDout:LEDs|vDFFenable:LED_V"
+ 29. Port Connectivity Checks: "LEDout:LEDs"
+ 30. Port Connectivity Checks: "switchReceiver:switches"
+ 31. Port Connectivity Checks: "cpu:CPU|datapath:DP"
+ 32. Post-Synthesis Netlist Statistics for Top Partition
+ 33. Elapsed Time Per Partition
+ 34. Analysis & Synthesis Messages
+ 35. Analysis & Synthesis Suppressed Messages
+
+
+
+----------------
+; Legal Notice ;
+----------------
+Copyright (C) 2023  Intel Corporation. All rights reserved.
+Your use of Intel Corporation's design tools, logic functions 
+and other software and tools, and any partner logic 
+functions, and any output files from any of the foregoing 
+(including device programming or simulation files), and any 
+associated documentation or information are expressly subject 
+to the terms and conditions of the Intel Program License 
+Subscription Agreement, the Intel Quartus Prime License Agreement,
+the Intel FPGA IP License Agreement, or other applicable license
+agreement, including, without limitation, that your use is for
+the sole purpose of programming logic devices manufactured by
+Intel and sold by Intel or its authorized distributors.  Please
+refer to the applicable agreement for further details, at
+https://fpgasoftware.intel.com/eula.
+
+
+
++----------------------------------------------------------------------------------+
+; Analysis & Synthesis Summary                                                     ;
++---------------------------------+------------------------------------------------+
+; Analysis & Synthesis Status     ; Successful - Mon Nov 27 20:23:36 2023          ;
+; Quartus Prime Version           ; 22.1std.2 Build 922 07/20/2023 SC Lite Edition ;
+; Revision Name                   ; lab7_top                                       ;
+; Top-level Entity Name           ; lab7_top                                       ;
+; Family                          ; Cyclone V                                      ;
+; Logic utilization (in ALMs)     ; N/A                                            ;
+; Total registers                 ; 0                                              ;
+; Total pins                      ; 66                                             ;
+; Total virtual pins              ; 0                                              ;
+; Total block memory bits         ; 0                                              ;
+; Total DSP Blocks                ; 0                                              ;
+; Total HSSI RX PCSs              ; 0                                              ;
+; Total HSSI PMA RX Deserializers ; 0                                              ;
+; Total HSSI TX PCSs              ; 0                                              ;
+; Total HSSI PMA TX Serializers   ; 0                                              ;
+; Total PLLs                      ; 0                                              ;
+; Total DLLs                      ; 0                                              ;
++---------------------------------+------------------------------------------------+
+
+
++---------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Settings                                                                                             ;
++---------------------------------------------------------------------------------+--------------------+--------------------+
+; Option                                                                          ; Setting            ; Default Value      ;
++---------------------------------------------------------------------------------+--------------------+--------------------+
+; Device                                                                          ; 5CSEMA5F31C6       ;                    ;
+; Top-level entity name                                                           ; lab7_top           ; lab7_top           ;
+; Family name                                                                     ; Cyclone V          ; Cyclone V          ;
+; Use smart compilation                                                           ; Off                ; Off                ;
+; Enable parallel Assembler and Timing Analyzer during compilation                ; On                 ; On                 ;
+; Enable compact report table                                                     ; Off                ; Off                ;
+; Restructure Multiplexers                                                        ; Auto               ; Auto               ;
+; MLAB Add Timing Constraints For Mixed-Port Feed-Through Mode Setting Don't Care ; Off                ; Off                ;
+; Create Debugging Nodes for IP Cores                                             ; Off                ; Off                ;
+; Preserve fewer node names                                                       ; On                 ; On                 ;
+; Intel FPGA IP Evaluation Mode                                                   ; Enable             ; Enable             ;
+; Verilog Version                                                                 ; Verilog_2001       ; Verilog_2001       ;
+; VHDL Version                                                                    ; VHDL_1993          ; VHDL_1993          ;
+; State Machine Processing                                                        ; Auto               ; Auto               ;
+; Safe State Machine                                                              ; Off                ; Off                ;
+; Extract Verilog State Machines                                                  ; On                 ; On                 ;
+; Extract VHDL State Machines                                                     ; On                 ; On                 ;
+; Ignore Verilog initial constructs                                               ; Off                ; Off                ;
+; Iteration limit for constant Verilog loops                                      ; 5000               ; 5000               ;
+; Iteration limit for non-constant Verilog loops                                  ; 250                ; 250                ;
+; Add Pass-Through Logic to Inferred RAMs                                         ; On                 ; On                 ;
+; Infer RAMs from Raw Logic                                                       ; On                 ; On                 ;
+; Parallel Synthesis                                                              ; On                 ; On                 ;
+; DSP Block Balancing                                                             ; Auto               ; Auto               ;
+; NOT Gate Push-Back                                                              ; On                 ; On                 ;
+; Power-Up Don't Care                                                             ; On                 ; On                 ;
+; Remove Redundant Logic Cells                                                    ; Off                ; Off                ;
+; Remove Duplicate Registers                                                      ; On                 ; On                 ;
+; Ignore CARRY Buffers                                                            ; Off                ; Off                ;
+; Ignore CASCADE Buffers                                                          ; Off                ; Off                ;
+; Ignore GLOBAL Buffers                                                           ; Off                ; Off                ;
+; Ignore ROW GLOBAL Buffers                                                       ; Off                ; Off                ;
+; Ignore LCELL Buffers                                                            ; Off                ; Off                ;
+; Ignore SOFT Buffers                                                             ; On                 ; On                 ;
+; Limit AHDL Integers to 32 Bits                                                  ; Off                ; Off                ;
+; Optimization Technique                                                          ; Balanced           ; Balanced           ;
+; Carry Chain Length                                                              ; 70                 ; 70                 ;
+; Auto Carry Chains                                                               ; On                 ; On                 ;
+; Auto Open-Drain Pins                                                            ; On                 ; On                 ;
+; Perform WYSIWYG Primitive Resynthesis                                           ; Off                ; Off                ;
+; Auto ROM Replacement                                                            ; On                 ; On                 ;
+; Auto RAM Replacement                                                            ; On                 ; On                 ;
+; Auto DSP Block Replacement                                                      ; On                 ; On                 ;
+; Auto Shift Register Replacement                                                 ; Auto               ; Auto               ;
+; Allow Shift Register Merging across Hierarchies                                 ; Auto               ; Auto               ;
+; Auto Clock Enable Replacement                                                   ; On                 ; On                 ;
+; Strict RAM Replacement                                                          ; Off                ; Off                ;
+; Allow Synchronous Control Signals                                               ; On                 ; On                 ;
+; Force Use of Synchronous Clear Signals                                          ; Off                ; Off                ;
+; Auto Resource Sharing                                                           ; Off                ; Off                ;
+; Allow Any RAM Size For Recognition                                              ; Off                ; Off                ;
+; Allow Any ROM Size For Recognition                                              ; Off                ; Off                ;
+; Allow Any Shift Register Size For Recognition                                   ; Off                ; Off                ;
+; Use LogicLock Constraints during Resource Balancing                             ; On                 ; On                 ;
+; Ignore translate_off and synthesis_off directives                               ; Off                ; Off                ;
+; Timing-Driven Synthesis                                                         ; On                 ; On                 ;
+; Report Parameter Settings                                                       ; On                 ; On                 ;
+; Report Source Assignments                                                       ; On                 ; On                 ;
+; Report Connectivity Checks                                                      ; On                 ; On                 ;
+; Ignore Maximum Fan-Out Assignments                                              ; Off                ; Off                ;
+; Synchronization Register Chain Length                                           ; 3                  ; 3                  ;
+; Power Optimization During Synthesis                                             ; Normal compilation ; Normal compilation ;
+; HDL message level                                                               ; Level2             ; Level2             ;
+; Suppress Register Optimization Related Messages                                 ; Off                ; Off                ;
+; Number of Removed Registers Reported in Synthesis Report                        ; 5000               ; 5000               ;
+; Number of Swept Nodes Reported in Synthesis Report                              ; 5000               ; 5000               ;
+; Number of Inverted Registers Reported in Synthesis Report                       ; 100                ; 100                ;
+; Clock MUX Protection                                                            ; On                 ; On                 ;
+; Auto Gated Clock Conversion                                                     ; Off                ; Off                ;
+; Block Design Naming                                                             ; Auto               ; Auto               ;
+; SDC constraint protection                                                       ; Off                ; Off                ;
+; Synthesis Effort                                                                ; Auto               ; Auto               ;
+; Shift Register Replacement - Allow Asynchronous Clear Signal                    ; On                 ; On                 ;
+; Pre-Mapping Resynthesis Optimization                                            ; Off                ; Off                ;
+; Analysis & Synthesis Message Level                                              ; Medium             ; Medium             ;
+; Disable Register Merging Across Hierarchies                                     ; Auto               ; Auto               ;
+; Resource Aware Inference For Block RAM                                          ; On                 ; On                 ;
+; Automatic Parallel Synthesis                                                    ; On                 ; On                 ;
+; Partial Reconfiguration Bitstream ID                                            ; Off                ; Off                ;
++---------------------------------------------------------------------------------+--------------------+--------------------+
+
+
++------------------------------------------+
+; Parallel Compilation                     ;
++----------------------------+-------------+
+; Processors                 ; Number      ;
++----------------------------+-------------+
+; Number detected on machine ; 20          ;
+; Maximum allowed            ; 14          ;
+;                            ;             ;
+; Average used               ; 1.00        ;
+; Maximum used               ; 1           ;
+;                            ;             ;
+; Usage by Processor         ; % Time Used ;
+;     Processor 1            ; 100.0%      ;
++----------------------------+-------------+
+
+
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Source Files Read                                                                                                                                                                                 ;
++------------------------------------+-----------------+-------------------------------------------------------+-----------------------------------------------------------------------------------------------+---------+
+; File Name with User-Entered Path   ; Used in Netlist ; File Type                                             ; File Name with Absolute Path                                                                  ; Library ;
++------------------------------------+-----------------+-------------------------------------------------------+-----------------------------------------------------------------------------------------------+---------+
+; shifter.sv                         ; yes             ; User SystemVerilog HDL File                           ; C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/shifter.sv                         ;         ;
+; regfile.sv                         ; yes             ; User SystemVerilog HDL File                           ; C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/regfile.sv                         ;         ;
+; memory.sv                          ; yes             ; User SystemVerilog HDL File                           ; C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/memory.sv                          ;         ;
+; datapath.sv                        ; yes             ; User SystemVerilog HDL File                           ; C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/datapath.sv                        ;         ;
+; cpu.sv                             ; yes             ; User SystemVerilog HDL File                           ; C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/cpu.sv                             ;         ;
+; alu.sv                             ; yes             ; User SystemVerilog HDL File                           ; C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/alu.sv                             ;         ;
+; instructionDecoder.v               ; yes             ; User Verilog HDL File                                 ; C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/instructionDecoder.v               ;         ;
+; lab7-top.sv                        ; yes             ; User SystemVerilog HDL File                           ; C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/lab7-top.sv                        ;         ;
+; altsyncram.tdf                     ; yes             ; Megafunction                                          ; c:/users/smacg/downloads/quartus/libraries/megafunctions/altsyncram.tdf                       ;         ;
+; stratix_ram_block.inc              ; yes             ; Megafunction                                          ; c:/users/smacg/downloads/quartus/libraries/megafunctions/stratix_ram_block.inc                ;         ;
+; lpm_mux.inc                        ; yes             ; Megafunction                                          ; c:/users/smacg/downloads/quartus/libraries/megafunctions/lpm_mux.inc                          ;         ;
+; lpm_decode.inc                     ; yes             ; Megafunction                                          ; c:/users/smacg/downloads/quartus/libraries/megafunctions/lpm_decode.inc                       ;         ;
+; aglobal221.inc                     ; yes             ; Megafunction                                          ; c:/users/smacg/downloads/quartus/libraries/megafunctions/aglobal221.inc                       ;         ;
+; a_rdenreg.inc                      ; yes             ; Megafunction                                          ; c:/users/smacg/downloads/quartus/libraries/megafunctions/a_rdenreg.inc                        ;         ;
+; altrom.inc                         ; yes             ; Megafunction                                          ; c:/users/smacg/downloads/quartus/libraries/megafunctions/altrom.inc                           ;         ;
+; altram.inc                         ; yes             ; Megafunction                                          ; c:/users/smacg/downloads/quartus/libraries/megafunctions/altram.inc                           ;         ;
+; altdpram.inc                       ; yes             ; Megafunction                                          ; c:/users/smacg/downloads/quartus/libraries/megafunctions/altdpram.inc                         ;         ;
+; db/altsyncram_65r1.tdf             ; yes             ; Auto-Generated Megafunction                           ; C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/db/altsyncram_65r1.tdf             ;         ;
+; db/lab7_top.ram0_ram_15119.hdl.mif ; yes             ; Auto-Generated Auto-Found Memory Initialization File  ; C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/db/lab7_top.ram0_ram_15119.hdl.mif ;         ;
++------------------------------------+-----------------+-------------------------------------------------------+-----------------------------------------------------------------------------------------------+---------+
+
+
++------------------------------------------------------+
+; Analysis & Synthesis Resource Usage Summary          ;
++---------------------------------------------+--------+
+; Resource                                    ; Usage  ;
++---------------------------------------------+--------+
+; Estimate of Logic utilization (ALMs needed) ; 0      ;
+;                                             ;        ;
+; Combinational ALUT usage for logic          ; 0      ;
+;     -- 7 input functions                    ; 0      ;
+;     -- 6 input functions                    ; 0      ;
+;     -- 5 input functions                    ; 0      ;
+;     -- 4 input functions                    ; 0      ;
+;     -- <=3 input functions                  ; 0      ;
+;                                             ;        ;
+; Dedicated logic registers                   ; 0      ;
+;                                             ;        ;
+; I/O pins                                    ; 66     ;
+;                                             ;        ;
+; Total DSP Blocks                            ; 0      ;
+;                                             ;        ;
+; Maximum fan-out node                        ; KEY[2] ;
+; Maximum fan-out                             ; 1      ;
+; Total fan-out                               ; 66     ;
+; Average fan-out                             ; 0.50   ;
++---------------------------------------------+--------+
+
+
++----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Resource Utilization by Entity                                                                                                                                    ;
++----------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+---------------------+-------------+--------------+
+; Compilation Hierarchy Node ; Combinational ALUTs ; Dedicated Logic Registers ; Block Memory Bits ; DSP Blocks ; Pins ; Virtual Pins ; Full Hierarchy Name ; Entity Name ; Library Name ;
++----------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+---------------------+-------------+--------------+
+; |lab7_top                  ; 0 (0)               ; 0 (0)                     ; 0                 ; 0          ; 66   ; 0            ; |lab7_top           ; lab7_top    ; work         ;
++----------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+---------------------+-------------+--------------+
+Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
+
+
+Encoding Type:  One-Hot
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; State Machine - |lab7_top|cpu:CPU|ns                                                                                                                                                                                                                                                                                              ;
++-----------+-----------+-----------+-----------+-----------+-----------+-----------+-----------+-----------+-----------+-----------+-----------+-----------+-----------+-----------+-----------+-----------+-----------+-----------+-----------+-----------+-----------+-----------+-----------+-----------+-----------+-----------+
+; Name      ; ns.011001 ; ns.011000 ; ns.010111 ; ns.010110 ; ns.010101 ; ns.010100 ; ns.010011 ; ns.010010 ; ns.010001 ; ns.010000 ; ns.001111 ; ns.001110 ; ns.001101 ; ns.001100 ; ns.001011 ; ns.000000 ; ns.001001 ; ns.001000 ; ns.000111 ; ns.000110 ; ns.000101 ; ns.000100 ; ns.000011 ; ns.000010 ; ns.000001 ; ns.001010 ;
++-----------+-----------+-----------+-----------+-----------+-----------+-----------+-----------+-----------+-----------+-----------+-----------+-----------+-----------+-----------+-----------+-----------+-----------+-----------+-----------+-----------+-----------+-----------+-----------+-----------+-----------+-----------+
+; ns.001010 ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ;
+; ns.000001 ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 1         ; 1         ;
+; ns.000010 ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 1         ; 0         ; 1         ;
+; ns.000011 ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 1         ; 0         ; 0         ; 1         ;
+; ns.000100 ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 1         ; 0         ; 0         ; 0         ; 1         ;
+; ns.000101 ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 1         ; 0         ; 0         ; 0         ; 0         ; 1         ;
+; ns.000110 ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 1         ; 0         ; 0         ; 0         ; 0         ; 0         ; 1         ;
+; ns.000111 ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 1         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 1         ;
+; ns.001000 ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 1         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 1         ;
+; ns.001001 ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 1         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 1         ;
+; ns.000000 ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 1         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 1         ;
+; ns.001011 ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 1         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 1         ;
+; ns.001100 ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 1         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 1         ;
+; ns.001101 ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 1         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 1         ;
+; ns.001110 ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 1         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 1         ;
+; ns.001111 ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 1         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 1         ;
+; ns.010000 ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 1         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 1         ;
+; ns.010001 ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 1         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 1         ;
+; ns.010010 ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 1         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 1         ;
+; ns.010011 ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 1         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 1         ;
+; ns.010100 ; 0         ; 0         ; 0         ; 0         ; 0         ; 1         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 1         ;
+; ns.010101 ; 0         ; 0         ; 0         ; 0         ; 1         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 1         ;
+; ns.010110 ; 0         ; 0         ; 0         ; 1         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 1         ;
+; ns.010111 ; 0         ; 0         ; 1         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 1         ;
+; ns.011000 ; 0         ; 1         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 1         ;
+; ns.011001 ; 1         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 0         ; 1         ;
++-----------+-----------+-----------+-----------+-----------+-----------+-----------+-----------+-----------+-----------+-----------+-----------+-----------+-----------+-----------+-----------+-----------+-----------+-----------+-----------+-----------+-----------+-----------+-----------+-----------+-----------+-----------+
+
+
++-----------------------------------------------------------------------+
+; Registers Removed During Synthesis                                    ;
++--------------------------------------------------+--------------------+
+; Register name                                    ; Reason for Removal ;
++--------------------------------------------------+--------------------+
+; cpu:CPU|ns~4                                     ; Lost fanout        ;
+; cpu:CPU|ns~5                                     ; Lost fanout        ;
+; cpu:CPU|ns~6                                     ; Lost fanout        ;
+; cpu:CPU|ns~7                                     ; Lost fanout        ;
+; cpu:CPU|ns~8                                     ; Lost fanout        ;
+; cpu:CPU|ns~9                                     ; Lost fanout        ;
+; cpu:CPU|ns.010101                                ; Lost fanout        ;
+; cpu:CPU|ns.010111                                ; Lost fanout        ;
+; cpu:CPU|ns.011001                                ; Lost fanout        ;
+; cpu:CPU|ns.001010                                ; Lost fanout        ;
+; cpu:CPU|ns.001100                                ; Lost fanout        ;
+; cpu:CPU|ns.010001                                ; Lost fanout        ;
+; cpu:CPU|ns.010010                                ; Lost fanout        ;
+; cpu:CPU|ns.011000                                ; Lost fanout        ;
+; cpu:CPU|vDFFenable:dataAdress|Q[8]               ; Lost fanout        ;
+; cpu:CPU|vDFFenable:programCounter|Q[8]           ; Lost fanout        ;
+; cpu:CPU|ns.000000                                ; Lost fanout        ;
+; cpu:CPU|ns.001111                                ; Lost fanout        ;
+; cpu:CPU|ns.010011                                ; Lost fanout        ;
+; cpu:CPU|datapath:DP|vDFFenable:C_flip|Q[0..15]   ; Lost fanout        ;
+; cpu:CPU|vDFFenable:dataAdress|Q[0]               ; Lost fanout        ;
+; cpu:CPU|vDFFenable:programCounter|Q[0]           ; Lost fanout        ;
+; cpu:CPU|vDFFenable:dataAdress|Q[1]               ; Lost fanout        ;
+; cpu:CPU|vDFFenable:programCounter|Q[1]           ; Lost fanout        ;
+; cpu:CPU|vDFFenable:dataAdress|Q[2]               ; Lost fanout        ;
+; cpu:CPU|vDFFenable:programCounter|Q[2]           ; Lost fanout        ;
+; cpu:CPU|vDFFenable:dataAdress|Q[3]               ; Lost fanout        ;
+; cpu:CPU|vDFFenable:programCounter|Q[3]           ; Lost fanout        ;
+; cpu:CPU|vDFFenable:dataAdress|Q[4]               ; Lost fanout        ;
+; cpu:CPU|vDFFenable:programCounter|Q[4]           ; Lost fanout        ;
+; cpu:CPU|vDFFenable:dataAdress|Q[5]               ; Lost fanout        ;
+; cpu:CPU|vDFFenable:programCounter|Q[5]           ; Lost fanout        ;
+; cpu:CPU|vDFFenable:dataAdress|Q[6]               ; Lost fanout        ;
+; cpu:CPU|vDFFenable:programCounter|Q[6]           ; Lost fanout        ;
+; cpu:CPU|vDFFenable:dataAdress|Q[7]               ; Lost fanout        ;
+; cpu:CPU|vDFFenable:programCounter|Q[7]           ; Lost fanout        ;
+; cpu:CPU|ns.010100                                ; Lost fanout        ;
+; cpu:CPU|ns.010110                                ; Lost fanout        ;
+; cpu:CPU|ns.000001                                ; Lost fanout        ;
+; cpu:CPU|vDFFenable:instructionRegister|Q[11..15] ; Lost fanout        ;
+; cpu:CPU|ns.000100                                ; Lost fanout        ;
+; cpu:CPU|ns.000111                                ; Lost fanout        ;
+; cpu:CPU|ns.001000                                ; Lost fanout        ;
+; cpu:CPU|ns.001001                                ; Lost fanout        ;
+; cpu:CPU|ns.010000                                ; Lost fanout        ;
+; cpu:CPU|ns.001101                                ; Lost fanout        ;
+; cpu:CPU|vDFFenable:instructionRegister|Q[3]      ; Lost fanout        ;
+; cpu:CPU|datapath:DP|vDFFenable:B_flip|Q[0,1]     ; Lost fanout        ;
+; cpu:CPU|vDFFenable:instructionRegister|Q[0,4]    ; Lost fanout        ;
+; cpu:CPU|ns.000101                                ; Lost fanout        ;
+; cpu:CPU|ns.000110                                ; Lost fanout        ;
+; cpu:CPU|datapath:DP|vDFFenable:A_flip|Q[0,1]     ; Lost fanout        ;
+; cpu:CPU|vDFFenable:instructionRegister|Q[1]      ; Lost fanout        ;
+; cpu:CPU|datapath:DP|vDFFenable:B_flip|Q[2]       ; Lost fanout        ;
+; cpu:CPU|datapath:DP|vDFFenable:A_flip|Q[2]       ; Lost fanout        ;
+; cpu:CPU|vDFFenable:instructionRegister|Q[2]      ; Lost fanout        ;
+; cpu:CPU|datapath:DP|vDFFenable:B_flip|Q[3]       ; Lost fanout        ;
+; cpu:CPU|datapath:DP|vDFFenable:A_flip|Q[3]       ; Lost fanout        ;
+; cpu:CPU|datapath:DP|vDFFenable:B_flip|Q[4]       ; Lost fanout        ;
+; cpu:CPU|datapath:DP|vDFFenable:A_flip|Q[4]       ; Lost fanout        ;
+; cpu:CPU|datapath:DP|vDFFenable:B_flip|Q[5]       ; Lost fanout        ;
+; cpu:CPU|datapath:DP|vDFFenable:A_flip|Q[5]       ; Lost fanout        ;
+; cpu:CPU|datapath:DP|vDFFenable:B_flip|Q[6]       ; Lost fanout        ;
+; cpu:CPU|datapath:DP|vDFFenable:A_flip|Q[6]       ; Lost fanout        ;
+; cpu:CPU|datapath:DP|vDFFenable:B_flip|Q[7]       ; Lost fanout        ;
+; cpu:CPU|datapath:DP|vDFFenable:A_flip|Q[7]       ; Lost fanout        ;
+; cpu:CPU|datapath:DP|vDFFenable:B_flip|Q[8]       ; Lost fanout        ;
+; cpu:CPU|datapath:DP|vDFFenable:A_flip|Q[8]       ; Lost fanout        ;
+; cpu:CPU|datapath:DP|vDFFenable:B_flip|Q[9]       ; Lost fanout        ;
+; cpu:CPU|datapath:DP|vDFFenable:A_flip|Q[9]       ; Lost fanout        ;
+; cpu:CPU|datapath:DP|vDFFenable:B_flip|Q[10]      ; Lost fanout        ;
+; cpu:CPU|datapath:DP|vDFFenable:A_flip|Q[10]      ; Lost fanout        ;
+; cpu:CPU|datapath:DP|vDFFenable:B_flip|Q[11]      ; Lost fanout        ;
+; cpu:CPU|datapath:DP|vDFFenable:A_flip|Q[11]      ; Lost fanout        ;
+; cpu:CPU|datapath:DP|vDFFenable:B_flip|Q[12]      ; Lost fanout        ;
+; cpu:CPU|datapath:DP|vDFFenable:A_flip|Q[12]      ; Lost fanout        ;
+; cpu:CPU|datapath:DP|vDFFenable:B_flip|Q[13]      ; Lost fanout        ;
+; cpu:CPU|datapath:DP|vDFFenable:A_flip|Q[13]      ; Lost fanout        ;
+; cpu:CPU|datapath:DP|vDFFenable:B_flip|Q[14]      ; Lost fanout        ;
+; cpu:CPU|datapath:DP|vDFFenable:A_flip|Q[14]      ; Lost fanout        ;
+; cpu:CPU|datapath:DP|vDFFenable:B_flip|Q[15]      ; Lost fanout        ;
+; cpu:CPU|datapath:DP|vDFFenable:A_flip|Q[15]      ; Lost fanout        ;
+; cpu:CPU|ns.000010                                ; Lost fanout        ;
+; cpu:CPU|datapath:DP|regfile:REGFILE|R0[0]        ; Lost fanout        ;
+; cpu:CPU|datapath:DP|regfile:REGFILE|R1[0]        ; Lost fanout        ;
+; cpu:CPU|vDFFenable:instructionRegister|Q[5,8]    ; Lost fanout        ;
+; cpu:CPU|datapath:DP|regfile:REGFILE|R3[0]        ; Lost fanout        ;
+; cpu:CPU|vDFFenable:instructionRegister|Q[6,9]    ; Lost fanout        ;
+; cpu:CPU|datapath:DP|regfile:REGFILE|R2[0]        ; Lost fanout        ;
+; cpu:CPU|datapath:DP|regfile:REGFILE|R4[0]        ; Lost fanout        ;
+; cpu:CPU|datapath:DP|regfile:REGFILE|R5[0]        ; Lost fanout        ;
+; cpu:CPU|datapath:DP|regfile:REGFILE|R6[0]        ; Lost fanout        ;
+; cpu:CPU|datapath:DP|regfile:REGFILE|R7[0]        ; Lost fanout        ;
+; cpu:CPU|vDFFenable:instructionRegister|Q[7,10]   ; Lost fanout        ;
+; cpu:CPU|datapath:DP|regfile:REGFILE|R0[1]        ; Lost fanout        ;
+; cpu:CPU|datapath:DP|regfile:REGFILE|R1[1]        ; Lost fanout        ;
+; cpu:CPU|datapath:DP|regfile:REGFILE|R3[1]        ; Lost fanout        ;
+; cpu:CPU|datapath:DP|regfile:REGFILE|R2[1]        ; Lost fanout        ;
+; cpu:CPU|datapath:DP|regfile:REGFILE|R4[1]        ; Lost fanout        ;
+; cpu:CPU|datapath:DP|regfile:REGFILE|R5[1]        ; Lost fanout        ;
+; cpu:CPU|datapath:DP|regfile:REGFILE|R6[1]        ; Lost fanout        ;
+; cpu:CPU|datapath:DP|regfile:REGFILE|R7[1]        ; Lost fanout        ;
+; cpu:CPU|datapath:DP|regfile:REGFILE|R0[2]        ; Lost fanout        ;
+; cpu:CPU|datapath:DP|regfile:REGFILE|R1[2]        ; Lost fanout        ;
+; cpu:CPU|datapath:DP|regfile:REGFILE|R3[2]        ; Lost fanout        ;
+; cpu:CPU|datapath:DP|regfile:REGFILE|R2[2]        ; Lost fanout        ;
+; cpu:CPU|datapath:DP|regfile:REGFILE|R4[2]        ; Lost fanout        ;
+; cpu:CPU|datapath:DP|regfile:REGFILE|R5[2]        ; Lost fanout        ;
+; cpu:CPU|datapath:DP|regfile:REGFILE|R6[2]        ; Lost fanout        ;
+; cpu:CPU|datapath:DP|regfile:REGFILE|R7[2]        ; Lost fanout        ;
+; cpu:CPU|datapath:DP|regfile:REGFILE|R0[3]        ; Lost fanout        ;
+; cpu:CPU|datapath:DP|regfile:REGFILE|R1[3]        ; Lost fanout        ;
+; cpu:CPU|datapath:DP|regfile:REGFILE|R3[3]        ; Lost fanout        ;
+; cpu:CPU|datapath:DP|regfile:REGFILE|R2[3]        ; Lost fanout        ;
+; cpu:CPU|datapath:DP|regfile:REGFILE|R4[3]        ; Lost fanout        ;
+; cpu:CPU|datapath:DP|regfile:REGFILE|R5[3]        ; Lost fanout        ;
+; cpu:CPU|datapath:DP|regfile:REGFILE|R6[3]        ; Lost fanout        ;
+; cpu:CPU|datapath:DP|regfile:REGFILE|R7[3]        ; Lost fanout        ;
+; cpu:CPU|datapath:DP|regfile:REGFILE|R0[4]        ; Lost fanout        ;
+; cpu:CPU|datapath:DP|regfile:REGFILE|R1[4]        ; Lost fanout        ;
+; cpu:CPU|datapath:DP|regfile:REGFILE|R3[4]        ; Lost fanout        ;
+; cpu:CPU|datapath:DP|regfile:REGFILE|R2[4]        ; Lost fanout        ;
+; cpu:CPU|datapath:DP|regfile:REGFILE|R4[4]        ; Lost fanout        ;
+; cpu:CPU|datapath:DP|regfile:REGFILE|R5[4]        ; Lost fanout        ;
+; cpu:CPU|datapath:DP|regfile:REGFILE|R6[4]        ; Lost fanout        ;
+; cpu:CPU|datapath:DP|regfile:REGFILE|R7[4]        ; Lost fanout        ;
+; cpu:CPU|datapath:DP|regfile:REGFILE|R0[5]        ; Lost fanout        ;
+; cpu:CPU|datapath:DP|regfile:REGFILE|R1[5]        ; Lost fanout        ;
+; cpu:CPU|datapath:DP|regfile:REGFILE|R3[5]        ; Lost fanout        ;
+; cpu:CPU|datapath:DP|regfile:REGFILE|R2[5]        ; Lost fanout        ;
+; cpu:CPU|datapath:DP|regfile:REGFILE|R4[5]        ; Lost fanout        ;
+; cpu:CPU|datapath:DP|regfile:REGFILE|R5[5]        ; Lost fanout        ;
+; cpu:CPU|datapath:DP|regfile:REGFILE|R6[5]        ; Lost fanout        ;
+; cpu:CPU|datapath:DP|regfile:REGFILE|R7[5]        ; Lost fanout        ;
+; cpu:CPU|datapath:DP|regfile:REGFILE|R0[6]        ; Lost fanout        ;
+; cpu:CPU|datapath:DP|regfile:REGFILE|R1[6]        ; Lost fanout        ;
+; cpu:CPU|datapath:DP|regfile:REGFILE|R3[6]        ; Lost fanout        ;
+; cpu:CPU|datapath:DP|regfile:REGFILE|R2[6]        ; Lost fanout        ;
+; cpu:CPU|datapath:DP|regfile:REGFILE|R4[6]        ; Lost fanout        ;
+; cpu:CPU|datapath:DP|regfile:REGFILE|R5[6]        ; Lost fanout        ;
+; cpu:CPU|datapath:DP|regfile:REGFILE|R6[6]        ; Lost fanout        ;
+; cpu:CPU|datapath:DP|regfile:REGFILE|R7[6]        ; Lost fanout        ;
+; cpu:CPU|datapath:DP|regfile:REGFILE|R0[7]        ; Lost fanout        ;
+; cpu:CPU|datapath:DP|regfile:REGFILE|R1[7]        ; Lost fanout        ;
+; cpu:CPU|datapath:DP|regfile:REGFILE|R3[7]        ; Lost fanout        ;
+; cpu:CPU|datapath:DP|regfile:REGFILE|R2[7]        ; Lost fanout        ;
+; cpu:CPU|datapath:DP|regfile:REGFILE|R4[7]        ; Lost fanout        ;
+; cpu:CPU|datapath:DP|regfile:REGFILE|R5[7]        ; Lost fanout        ;
+; cpu:CPU|datapath:DP|regfile:REGFILE|R6[7]        ; Lost fanout        ;
+; cpu:CPU|datapath:DP|regfile:REGFILE|R7[7]        ; Lost fanout        ;
+; cpu:CPU|datapath:DP|regfile:REGFILE|R0[8]        ; Lost fanout        ;
+; cpu:CPU|datapath:DP|regfile:REGFILE|R1[8]        ; Lost fanout        ;
+; cpu:CPU|datapath:DP|regfile:REGFILE|R3[8]        ; Lost fanout        ;
+; cpu:CPU|datapath:DP|regfile:REGFILE|R2[8]        ; Lost fanout        ;
+; cpu:CPU|datapath:DP|regfile:REGFILE|R4[8]        ; Lost fanout        ;
+; cpu:CPU|datapath:DP|regfile:REGFILE|R5[8]        ; Lost fanout        ;
+; cpu:CPU|datapath:DP|regfile:REGFILE|R6[8]        ; Lost fanout        ;
+; cpu:CPU|datapath:DP|regfile:REGFILE|R7[8]        ; Lost fanout        ;
+; cpu:CPU|datapath:DP|regfile:REGFILE|R0[9]        ; Lost fanout        ;
+; cpu:CPU|datapath:DP|regfile:REGFILE|R1[9]        ; Lost fanout        ;
+; cpu:CPU|datapath:DP|regfile:REGFILE|R3[9]        ; Lost fanout        ;
+; cpu:CPU|datapath:DP|regfile:REGFILE|R2[9]        ; Lost fanout        ;
+; cpu:CPU|datapath:DP|regfile:REGFILE|R4[9]        ; Lost fanout        ;
+; cpu:CPU|datapath:DP|regfile:REGFILE|R5[9]        ; Lost fanout        ;
+; cpu:CPU|datapath:DP|regfile:REGFILE|R6[9]        ; Lost fanout        ;
+; cpu:CPU|datapath:DP|regfile:REGFILE|R7[9]        ; Lost fanout        ;
+; cpu:CPU|datapath:DP|regfile:REGFILE|R0[10]       ; Lost fanout        ;
+; cpu:CPU|datapath:DP|regfile:REGFILE|R1[10]       ; Lost fanout        ;
+; cpu:CPU|datapath:DP|regfile:REGFILE|R3[10]       ; Lost fanout        ;
+; cpu:CPU|datapath:DP|regfile:REGFILE|R2[10]       ; Lost fanout        ;
+; cpu:CPU|datapath:DP|regfile:REGFILE|R4[10]       ; Lost fanout        ;
+; cpu:CPU|datapath:DP|regfile:REGFILE|R5[10]       ; Lost fanout        ;
+; cpu:CPU|datapath:DP|regfile:REGFILE|R6[10]       ; Lost fanout        ;
+; cpu:CPU|datapath:DP|regfile:REGFILE|R7[10]       ; Lost fanout        ;
+; cpu:CPU|datapath:DP|regfile:REGFILE|R0[11]       ; Lost fanout        ;
+; cpu:CPU|datapath:DP|regfile:REGFILE|R1[11]       ; Lost fanout        ;
+; cpu:CPU|datapath:DP|regfile:REGFILE|R3[11]       ; Lost fanout        ;
+; cpu:CPU|datapath:DP|regfile:REGFILE|R2[11]       ; Lost fanout        ;
+; cpu:CPU|datapath:DP|regfile:REGFILE|R4[11]       ; Lost fanout        ;
+; cpu:CPU|datapath:DP|regfile:REGFILE|R5[11]       ; Lost fanout        ;
+; cpu:CPU|datapath:DP|regfile:REGFILE|R6[11]       ; Lost fanout        ;
+; cpu:CPU|datapath:DP|regfile:REGFILE|R7[11]       ; Lost fanout        ;
+; cpu:CPU|datapath:DP|regfile:REGFILE|R0[12]       ; Lost fanout        ;
+; cpu:CPU|datapath:DP|regfile:REGFILE|R1[12]       ; Lost fanout        ;
+; cpu:CPU|datapath:DP|regfile:REGFILE|R3[12]       ; Lost fanout        ;
+; cpu:CPU|datapath:DP|regfile:REGFILE|R2[12]       ; Lost fanout        ;
+; cpu:CPU|datapath:DP|regfile:REGFILE|R4[12]       ; Lost fanout        ;
+; cpu:CPU|datapath:DP|regfile:REGFILE|R5[12]       ; Lost fanout        ;
+; cpu:CPU|datapath:DP|regfile:REGFILE|R6[12]       ; Lost fanout        ;
+; cpu:CPU|datapath:DP|regfile:REGFILE|R7[12]       ; Lost fanout        ;
+; cpu:CPU|datapath:DP|regfile:REGFILE|R0[13]       ; Lost fanout        ;
+; cpu:CPU|datapath:DP|regfile:REGFILE|R1[13]       ; Lost fanout        ;
+; cpu:CPU|datapath:DP|regfile:REGFILE|R3[13]       ; Lost fanout        ;
+; cpu:CPU|datapath:DP|regfile:REGFILE|R2[13]       ; Lost fanout        ;
+; cpu:CPU|datapath:DP|regfile:REGFILE|R4[13]       ; Lost fanout        ;
+; cpu:CPU|datapath:DP|regfile:REGFILE|R5[13]       ; Lost fanout        ;
+; cpu:CPU|datapath:DP|regfile:REGFILE|R6[13]       ; Lost fanout        ;
+; cpu:CPU|datapath:DP|regfile:REGFILE|R7[13]       ; Lost fanout        ;
+; cpu:CPU|datapath:DP|regfile:REGFILE|R0[14]       ; Lost fanout        ;
+; cpu:CPU|datapath:DP|regfile:REGFILE|R1[14]       ; Lost fanout        ;
+; cpu:CPU|datapath:DP|regfile:REGFILE|R3[14]       ; Lost fanout        ;
+; cpu:CPU|datapath:DP|regfile:REGFILE|R2[14]       ; Lost fanout        ;
+; cpu:CPU|datapath:DP|regfile:REGFILE|R4[14]       ; Lost fanout        ;
+; cpu:CPU|datapath:DP|regfile:REGFILE|R5[14]       ; Lost fanout        ;
+; cpu:CPU|datapath:DP|regfile:REGFILE|R6[14]       ; Lost fanout        ;
+; cpu:CPU|datapath:DP|regfile:REGFILE|R7[14]       ; Lost fanout        ;
+; cpu:CPU|datapath:DP|regfile:REGFILE|R0[15]       ; Lost fanout        ;
+; cpu:CPU|datapath:DP|regfile:REGFILE|R1[15]       ; Lost fanout        ;
+; cpu:CPU|datapath:DP|regfile:REGFILE|R3[15]       ; Lost fanout        ;
+; cpu:CPU|datapath:DP|regfile:REGFILE|R2[15]       ; Lost fanout        ;
+; cpu:CPU|datapath:DP|regfile:REGFILE|R4[15]       ; Lost fanout        ;
+; cpu:CPU|datapath:DP|regfile:REGFILE|R5[15]       ; Lost fanout        ;
+; cpu:CPU|datapath:DP|regfile:REGFILE|R6[15]       ; Lost fanout        ;
+; cpu:CPU|datapath:DP|regfile:REGFILE|R7[15]       ; Lost fanout        ;
+; cpu:CPU|ns.001011                                ; Lost fanout        ;
+; cpu:CPU|ns.001110                                ; Lost fanout        ;
+; cpu:CPU|ns.000011                                ; Lost fanout        ;
+; Total Number of Removed Registers = 242          ;                    ;
++--------------------------------------------------+--------------------+
+
+
++--------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Removed Registers Triggering Further Register Optimizations                                                                                            ;
++---------------------------------------------+--------------------+-------------------------------------------------------------------------------------+
+; Register name                               ; Reason for Removal ; Registers Removed due to This Register                                              ;
++---------------------------------------------+--------------------+-------------------------------------------------------------------------------------+
+; cpu:CPU|datapath:DP|vDFFenable:C_flip|Q[0]  ; Lost Fanouts       ; cpu:CPU|vDFFenable:instructionRegister|Q[3],                                        ;
+;                                             ;                    ; cpu:CPU|datapath:DP|vDFFenable:B_flip|Q[0],                                         ;
+;                                             ;                    ; cpu:CPU|datapath:DP|vDFFenable:B_flip|Q[1],                                         ;
+;                                             ;                    ; cpu:CPU|vDFFenable:instructionRegister|Q[4],                                        ;
+;                                             ;                    ; cpu:CPU|vDFFenable:instructionRegister|Q[0], cpu:CPU|ns.000101, cpu:CPU|ns.000110,  ;
+;                                             ;                    ; cpu:CPU|datapath:DP|vDFFenable:A_flip|Q[0],                                         ;
+;                                             ;                    ; cpu:CPU|datapath:DP|regfile:REGFILE|R0[0],                                          ;
+;                                             ;                    ; cpu:CPU|datapath:DP|regfile:REGFILE|R1[0],                                          ;
+;                                             ;                    ; cpu:CPU|vDFFenable:instructionRegister|Q[8],                                        ;
+;                                             ;                    ; cpu:CPU|vDFFenable:instructionRegister|Q[5],                                        ;
+;                                             ;                    ; cpu:CPU|datapath:DP|regfile:REGFILE|R3[0],                                          ;
+;                                             ;                    ; cpu:CPU|vDFFenable:instructionRegister|Q[9],                                        ;
+;                                             ;                    ; cpu:CPU|vDFFenable:instructionRegister|Q[6],                                        ;
+;                                             ;                    ; cpu:CPU|datapath:DP|regfile:REGFILE|R2[0],                                          ;
+;                                             ;                    ; cpu:CPU|datapath:DP|regfile:REGFILE|R4[0],                                          ;
+;                                             ;                    ; cpu:CPU|datapath:DP|regfile:REGFILE|R5[0],                                          ;
+;                                             ;                    ; cpu:CPU|datapath:DP|regfile:REGFILE|R6[0],                                          ;
+;                                             ;                    ; cpu:CPU|datapath:DP|regfile:REGFILE|R7[0],                                          ;
+;                                             ;                    ; cpu:CPU|vDFFenable:instructionRegister|Q[10],                                       ;
+;                                             ;                    ; cpu:CPU|vDFFenable:instructionRegister|Q[7],                                        ;
+;                                             ;                    ; cpu:CPU|datapath:DP|regfile:REGFILE|R0[1],                                          ;
+;                                             ;                    ; cpu:CPU|datapath:DP|regfile:REGFILE|R1[1],                                          ;
+;                                             ;                    ; cpu:CPU|datapath:DP|regfile:REGFILE|R3[1],                                          ;
+;                                             ;                    ; cpu:CPU|datapath:DP|regfile:REGFILE|R2[1],                                          ;
+;                                             ;                    ; cpu:CPU|datapath:DP|regfile:REGFILE|R4[1],                                          ;
+;                                             ;                    ; cpu:CPU|datapath:DP|regfile:REGFILE|R5[1],                                          ;
+;                                             ;                    ; cpu:CPU|datapath:DP|regfile:REGFILE|R6[1],                                          ;
+;                                             ;                    ; cpu:CPU|datapath:DP|regfile:REGFILE|R7[1], cpu:CPU|ns.000011                        ;
+; cpu:CPU|vDFFenable:dataAdress|Q[8]          ; Lost Fanouts       ; cpu:CPU|datapath:DP|vDFFenable:C_flip|Q[8],                                         ;
+;                                             ;                    ; cpu:CPU|datapath:DP|vDFFenable:A_flip|Q[8],                                         ;
+;                                             ;                    ; cpu:CPU|datapath:DP|vDFFenable:B_flip|Q[9],                                         ;
+;                                             ;                    ; cpu:CPU|datapath:DP|regfile:REGFILE|R0[9],                                          ;
+;                                             ;                    ; cpu:CPU|datapath:DP|regfile:REGFILE|R1[9],                                          ;
+;                                             ;                    ; cpu:CPU|datapath:DP|regfile:REGFILE|R3[9],                                          ;
+;                                             ;                    ; cpu:CPU|datapath:DP|regfile:REGFILE|R2[9],                                          ;
+;                                             ;                    ; cpu:CPU|datapath:DP|regfile:REGFILE|R4[9],                                          ;
+;                                             ;                    ; cpu:CPU|datapath:DP|regfile:REGFILE|R5[9],                                          ;
+;                                             ;                    ; cpu:CPU|datapath:DP|regfile:REGFILE|R6[9],                                          ;
+;                                             ;                    ; cpu:CPU|datapath:DP|regfile:REGFILE|R7[9]                                           ;
+; cpu:CPU|datapath:DP|vDFFenable:C_flip|Q[1]  ; Lost Fanouts       ; cpu:CPU|datapath:DP|vDFFenable:A_flip|Q[1],                                         ;
+;                                             ;                    ; cpu:CPU|vDFFenable:instructionRegister|Q[1],                                        ;
+;                                             ;                    ; cpu:CPU|datapath:DP|vDFFenable:B_flip|Q[2],                                         ;
+;                                             ;                    ; cpu:CPU|datapath:DP|regfile:REGFILE|R0[2],                                          ;
+;                                             ;                    ; cpu:CPU|datapath:DP|regfile:REGFILE|R1[2],                                          ;
+;                                             ;                    ; cpu:CPU|datapath:DP|regfile:REGFILE|R3[2],                                          ;
+;                                             ;                    ; cpu:CPU|datapath:DP|regfile:REGFILE|R2[2],                                          ;
+;                                             ;                    ; cpu:CPU|datapath:DP|regfile:REGFILE|R4[2],                                          ;
+;                                             ;                    ; cpu:CPU|datapath:DP|regfile:REGFILE|R5[2],                                          ;
+;                                             ;                    ; cpu:CPU|datapath:DP|regfile:REGFILE|R6[2],                                          ;
+;                                             ;                    ; cpu:CPU|datapath:DP|regfile:REGFILE|R7[2]                                           ;
+; cpu:CPU|datapath:DP|vDFFenable:C_flip|Q[2]  ; Lost Fanouts       ; cpu:CPU|datapath:DP|vDFFenable:A_flip|Q[2],                                         ;
+;                                             ;                    ; cpu:CPU|vDFFenable:instructionRegister|Q[2],                                        ;
+;                                             ;                    ; cpu:CPU|datapath:DP|vDFFenable:B_flip|Q[3],                                         ;
+;                                             ;                    ; cpu:CPU|datapath:DP|regfile:REGFILE|R0[3],                                          ;
+;                                             ;                    ; cpu:CPU|datapath:DP|regfile:REGFILE|R1[3],                                          ;
+;                                             ;                    ; cpu:CPU|datapath:DP|regfile:REGFILE|R3[3],                                          ;
+;                                             ;                    ; cpu:CPU|datapath:DP|regfile:REGFILE|R2[3],                                          ;
+;                                             ;                    ; cpu:CPU|datapath:DP|regfile:REGFILE|R4[3],                                          ;
+;                                             ;                    ; cpu:CPU|datapath:DP|regfile:REGFILE|R5[3],                                          ;
+;                                             ;                    ; cpu:CPU|datapath:DP|regfile:REGFILE|R6[3],                                          ;
+;                                             ;                    ; cpu:CPU|datapath:DP|regfile:REGFILE|R7[3]                                           ;
+; cpu:CPU|datapath:DP|vDFFenable:C_flip|Q[3]  ; Lost Fanouts       ; cpu:CPU|datapath:DP|vDFFenable:A_flip|Q[3],                                         ;
+;                                             ;                    ; cpu:CPU|datapath:DP|vDFFenable:B_flip|Q[4],                                         ;
+;                                             ;                    ; cpu:CPU|datapath:DP|regfile:REGFILE|R0[4],                                          ;
+;                                             ;                    ; cpu:CPU|datapath:DP|regfile:REGFILE|R1[4],                                          ;
+;                                             ;                    ; cpu:CPU|datapath:DP|regfile:REGFILE|R3[4],                                          ;
+;                                             ;                    ; cpu:CPU|datapath:DP|regfile:REGFILE|R2[4],                                          ;
+;                                             ;                    ; cpu:CPU|datapath:DP|regfile:REGFILE|R4[4],                                          ;
+;                                             ;                    ; cpu:CPU|datapath:DP|regfile:REGFILE|R5[4],                                          ;
+;                                             ;                    ; cpu:CPU|datapath:DP|regfile:REGFILE|R6[4],                                          ;
+;                                             ;                    ; cpu:CPU|datapath:DP|regfile:REGFILE|R7[4]                                           ;
+; cpu:CPU|datapath:DP|vDFFenable:C_flip|Q[4]  ; Lost Fanouts       ; cpu:CPU|datapath:DP|vDFFenable:A_flip|Q[4],                                         ;
+;                                             ;                    ; cpu:CPU|datapath:DP|vDFFenable:B_flip|Q[5],                                         ;
+;                                             ;                    ; cpu:CPU|datapath:DP|regfile:REGFILE|R0[5],                                          ;
+;                                             ;                    ; cpu:CPU|datapath:DP|regfile:REGFILE|R1[5],                                          ;
+;                                             ;                    ; cpu:CPU|datapath:DP|regfile:REGFILE|R3[5],                                          ;
+;                                             ;                    ; cpu:CPU|datapath:DP|regfile:REGFILE|R2[5],                                          ;
+;                                             ;                    ; cpu:CPU|datapath:DP|regfile:REGFILE|R4[5],                                          ;
+;                                             ;                    ; cpu:CPU|datapath:DP|regfile:REGFILE|R5[5],                                          ;
+;                                             ;                    ; cpu:CPU|datapath:DP|regfile:REGFILE|R6[5],                                          ;
+;                                             ;                    ; cpu:CPU|datapath:DP|regfile:REGFILE|R7[5]                                           ;
+; cpu:CPU|datapath:DP|vDFFenable:C_flip|Q[5]  ; Lost Fanouts       ; cpu:CPU|datapath:DP|vDFFenable:A_flip|Q[5],                                         ;
+;                                             ;                    ; cpu:CPU|datapath:DP|vDFFenable:B_flip|Q[6],                                         ;
+;                                             ;                    ; cpu:CPU|datapath:DP|regfile:REGFILE|R0[6],                                          ;
+;                                             ;                    ; cpu:CPU|datapath:DP|regfile:REGFILE|R1[6],                                          ;
+;                                             ;                    ; cpu:CPU|datapath:DP|regfile:REGFILE|R3[6],                                          ;
+;                                             ;                    ; cpu:CPU|datapath:DP|regfile:REGFILE|R2[6],                                          ;
+;                                             ;                    ; cpu:CPU|datapath:DP|regfile:REGFILE|R4[6],                                          ;
+;                                             ;                    ; cpu:CPU|datapath:DP|regfile:REGFILE|R5[6],                                          ;
+;                                             ;                    ; cpu:CPU|datapath:DP|regfile:REGFILE|R6[6],                                          ;
+;                                             ;                    ; cpu:CPU|datapath:DP|regfile:REGFILE|R7[6]                                           ;
+; cpu:CPU|datapath:DP|vDFFenable:C_flip|Q[6]  ; Lost Fanouts       ; cpu:CPU|datapath:DP|vDFFenable:A_flip|Q[6],                                         ;
+;                                             ;                    ; cpu:CPU|datapath:DP|vDFFenable:B_flip|Q[7],                                         ;
+;                                             ;                    ; cpu:CPU|datapath:DP|regfile:REGFILE|R0[7],                                          ;
+;                                             ;                    ; cpu:CPU|datapath:DP|regfile:REGFILE|R1[7],                                          ;
+;                                             ;                    ; cpu:CPU|datapath:DP|regfile:REGFILE|R3[7],                                          ;
+;                                             ;                    ; cpu:CPU|datapath:DP|regfile:REGFILE|R2[7],                                          ;
+;                                             ;                    ; cpu:CPU|datapath:DP|regfile:REGFILE|R4[7],                                          ;
+;                                             ;                    ; cpu:CPU|datapath:DP|regfile:REGFILE|R5[7],                                          ;
+;                                             ;                    ; cpu:CPU|datapath:DP|regfile:REGFILE|R6[7],                                          ;
+;                                             ;                    ; cpu:CPU|datapath:DP|regfile:REGFILE|R7[7]                                           ;
+; cpu:CPU|datapath:DP|vDFFenable:C_flip|Q[7]  ; Lost Fanouts       ; cpu:CPU|datapath:DP|vDFFenable:A_flip|Q[7],                                         ;
+;                                             ;                    ; cpu:CPU|datapath:DP|vDFFenable:B_flip|Q[8],                                         ;
+;                                             ;                    ; cpu:CPU|datapath:DP|regfile:REGFILE|R0[8],                                          ;
+;                                             ;                    ; cpu:CPU|datapath:DP|regfile:REGFILE|R1[8],                                          ;
+;                                             ;                    ; cpu:CPU|datapath:DP|regfile:REGFILE|R3[8],                                          ;
+;                                             ;                    ; cpu:CPU|datapath:DP|regfile:REGFILE|R2[8],                                          ;
+;                                             ;                    ; cpu:CPU|datapath:DP|regfile:REGFILE|R4[8],                                          ;
+;                                             ;                    ; cpu:CPU|datapath:DP|regfile:REGFILE|R5[8],                                          ;
+;                                             ;                    ; cpu:CPU|datapath:DP|regfile:REGFILE|R6[8],                                          ;
+;                                             ;                    ; cpu:CPU|datapath:DP|regfile:REGFILE|R7[8]                                           ;
+; cpu:CPU|datapath:DP|vDFFenable:C_flip|Q[9]  ; Lost Fanouts       ; cpu:CPU|datapath:DP|vDFFenable:A_flip|Q[9],                                         ;
+;                                             ;                    ; cpu:CPU|datapath:DP|vDFFenable:B_flip|Q[10],                                        ;
+;                                             ;                    ; cpu:CPU|datapath:DP|regfile:REGFILE|R0[10],                                         ;
+;                                             ;                    ; cpu:CPU|datapath:DP|regfile:REGFILE|R1[10],                                         ;
+;                                             ;                    ; cpu:CPU|datapath:DP|regfile:REGFILE|R3[10],                                         ;
+;                                             ;                    ; cpu:CPU|datapath:DP|regfile:REGFILE|R2[10],                                         ;
+;                                             ;                    ; cpu:CPU|datapath:DP|regfile:REGFILE|R4[10],                                         ;
+;                                             ;                    ; cpu:CPU|datapath:DP|regfile:REGFILE|R5[10],                                         ;
+;                                             ;                    ; cpu:CPU|datapath:DP|regfile:REGFILE|R6[10],                                         ;
+;                                             ;                    ; cpu:CPU|datapath:DP|regfile:REGFILE|R7[10]                                          ;
+; cpu:CPU|datapath:DP|vDFFenable:C_flip|Q[10] ; Lost Fanouts       ; cpu:CPU|datapath:DP|vDFFenable:A_flip|Q[10],                                        ;
+;                                             ;                    ; cpu:CPU|datapath:DP|vDFFenable:B_flip|Q[11],                                        ;
+;                                             ;                    ; cpu:CPU|datapath:DP|regfile:REGFILE|R0[11],                                         ;
+;                                             ;                    ; cpu:CPU|datapath:DP|regfile:REGFILE|R1[11],                                         ;
+;                                             ;                    ; cpu:CPU|datapath:DP|regfile:REGFILE|R3[11],                                         ;
+;                                             ;                    ; cpu:CPU|datapath:DP|regfile:REGFILE|R2[11],                                         ;
+;                                             ;                    ; cpu:CPU|datapath:DP|regfile:REGFILE|R4[11],                                         ;
+;                                             ;                    ; cpu:CPU|datapath:DP|regfile:REGFILE|R5[11],                                         ;
+;                                             ;                    ; cpu:CPU|datapath:DP|regfile:REGFILE|R6[11],                                         ;
+;                                             ;                    ; cpu:CPU|datapath:DP|regfile:REGFILE|R7[11]                                          ;
+; cpu:CPU|datapath:DP|vDFFenable:C_flip|Q[11] ; Lost Fanouts       ; cpu:CPU|datapath:DP|vDFFenable:A_flip|Q[11],                                        ;
+;                                             ;                    ; cpu:CPU|datapath:DP|vDFFenable:B_flip|Q[12],                                        ;
+;                                             ;                    ; cpu:CPU|datapath:DP|regfile:REGFILE|R0[12],                                         ;
+;                                             ;                    ; cpu:CPU|datapath:DP|regfile:REGFILE|R1[12],                                         ;
+;                                             ;                    ; cpu:CPU|datapath:DP|regfile:REGFILE|R3[12],                                         ;
+;                                             ;                    ; cpu:CPU|datapath:DP|regfile:REGFILE|R2[12],                                         ;
+;                                             ;                    ; cpu:CPU|datapath:DP|regfile:REGFILE|R4[12],                                         ;
+;                                             ;                    ; cpu:CPU|datapath:DP|regfile:REGFILE|R5[12],                                         ;
+;                                             ;                    ; cpu:CPU|datapath:DP|regfile:REGFILE|R6[12],                                         ;
+;                                             ;                    ; cpu:CPU|datapath:DP|regfile:REGFILE|R7[12]                                          ;
+; cpu:CPU|datapath:DP|vDFFenable:C_flip|Q[12] ; Lost Fanouts       ; cpu:CPU|datapath:DP|vDFFenable:A_flip|Q[12],                                        ;
+;                                             ;                    ; cpu:CPU|datapath:DP|vDFFenable:B_flip|Q[13],                                        ;
+;                                             ;                    ; cpu:CPU|datapath:DP|regfile:REGFILE|R0[13],                                         ;
+;                                             ;                    ; cpu:CPU|datapath:DP|regfile:REGFILE|R1[13],                                         ;
+;                                             ;                    ; cpu:CPU|datapath:DP|regfile:REGFILE|R3[13],                                         ;
+;                                             ;                    ; cpu:CPU|datapath:DP|regfile:REGFILE|R2[13],                                         ;
+;                                             ;                    ; cpu:CPU|datapath:DP|regfile:REGFILE|R4[13],                                         ;
+;                                             ;                    ; cpu:CPU|datapath:DP|regfile:REGFILE|R5[13],                                         ;
+;                                             ;                    ; cpu:CPU|datapath:DP|regfile:REGFILE|R6[13],                                         ;
+;                                             ;                    ; cpu:CPU|datapath:DP|regfile:REGFILE|R7[13]                                          ;
+; cpu:CPU|datapath:DP|vDFFenable:C_flip|Q[13] ; Lost Fanouts       ; cpu:CPU|datapath:DP|vDFFenable:A_flip|Q[13],                                        ;
+;                                             ;                    ; cpu:CPU|datapath:DP|vDFFenable:B_flip|Q[14],                                        ;
+;                                             ;                    ; cpu:CPU|datapath:DP|regfile:REGFILE|R0[14],                                         ;
+;                                             ;                    ; cpu:CPU|datapath:DP|regfile:REGFILE|R1[14],                                         ;
+;                                             ;                    ; cpu:CPU|datapath:DP|regfile:REGFILE|R3[14],                                         ;
+;                                             ;                    ; cpu:CPU|datapath:DP|regfile:REGFILE|R2[14],                                         ;
+;                                             ;                    ; cpu:CPU|datapath:DP|regfile:REGFILE|R4[14],                                         ;
+;                                             ;                    ; cpu:CPU|datapath:DP|regfile:REGFILE|R5[14],                                         ;
+;                                             ;                    ; cpu:CPU|datapath:DP|regfile:REGFILE|R6[14],                                         ;
+;                                             ;                    ; cpu:CPU|datapath:DP|regfile:REGFILE|R7[14]                                          ;
+; cpu:CPU|datapath:DP|vDFFenable:C_flip|Q[14] ; Lost Fanouts       ; cpu:CPU|datapath:DP|vDFFenable:A_flip|Q[14],                                        ;
+;                                             ;                    ; cpu:CPU|datapath:DP|vDFFenable:B_flip|Q[15],                                        ;
+;                                             ;                    ; cpu:CPU|datapath:DP|regfile:REGFILE|R0[15],                                         ;
+;                                             ;                    ; cpu:CPU|datapath:DP|regfile:REGFILE|R1[15],                                         ;
+;                                             ;                    ; cpu:CPU|datapath:DP|regfile:REGFILE|R3[15],                                         ;
+;                                             ;                    ; cpu:CPU|datapath:DP|regfile:REGFILE|R2[15],                                         ;
+;                                             ;                    ; cpu:CPU|datapath:DP|regfile:REGFILE|R4[15],                                         ;
+;                                             ;                    ; cpu:CPU|datapath:DP|regfile:REGFILE|R5[15],                                         ;
+;                                             ;                    ; cpu:CPU|datapath:DP|regfile:REGFILE|R6[15],                                         ;
+;                                             ;                    ; cpu:CPU|datapath:DP|regfile:REGFILE|R7[15]                                          ;
+; cpu:CPU|ns~4                                ; Lost Fanouts       ; cpu:CPU|ns.010111, cpu:CPU|ns.010100, cpu:CPU|ns.010110,                            ;
+;                                             ;                    ; cpu:CPU|vDFFenable:instructionRegister|Q[13],                                       ;
+;                                             ;                    ; cpu:CPU|vDFFenable:instructionRegister|Q[14],                                       ;
+;                                             ;                    ; cpu:CPU|vDFFenable:instructionRegister|Q[15], cpu:CPU|ns.010000                     ;
+; cpu:CPU|ns.001010                           ; Lost Fanouts       ; cpu:CPU|ns.000000, cpu:CPU|ns.000001, cpu:CPU|vDFFenable:instructionRegister|Q[11], ;
+;                                             ;                    ; cpu:CPU|vDFFenable:instructionRegister|Q[12], cpu:CPU|ns.000010                     ;
+; cpu:CPU|vDFFenable:programCounter|Q[8]      ; Lost Fanouts       ; cpu:CPU|vDFFenable:programCounter|Q[4], cpu:CPU|vDFFenable:programCounter|Q[5],     ;
+;                                             ;                    ; cpu:CPU|vDFFenable:programCounter|Q[6], cpu:CPU|vDFFenable:programCounter|Q[7],     ;
+;                                             ;                    ; cpu:CPU|ns.001101                                                                   ;
+; cpu:CPU|ns~7                                ; Lost Fanouts       ; cpu:CPU|ns.001100, cpu:CPU|ns.010010, cpu:CPU|ns.001011, cpu:CPU|ns.001110          ;
+; cpu:CPU|ns~5                                ; Lost Fanouts       ; cpu:CPU|ns.010101, cpu:CPU|ns.010001                                                ;
+; cpu:CPU|ns~6                                ; Lost Fanouts       ; cpu:CPU|ns.010011                                                                   ;
+; cpu:CPU|datapath:DP|vDFFenable:C_flip|Q[15] ; Lost Fanouts       ; cpu:CPU|datapath:DP|vDFFenable:A_flip|Q[15]                                         ;
++---------------------------------------------+--------------------+-------------------------------------------------------------------------------------+
+
+
++------------------------------------------------------+
+; General Register Statistics                          ;
++----------------------------------------------+-------+
+; Statistic                                    ; Value ;
++----------------------------------------------+-------+
+; Total registers                              ; 0     ;
+; Number of registers using Synchronous Clear  ; 0     ;
+; Number of registers using Synchronous Load   ; 0     ;
+; Number of registers using Asynchronous Clear ; 0     ;
+; Number of registers using Asynchronous Load  ; 0     ;
+; Number of registers using Clock Enable       ; 0     ;
+; Number of registers using Preset             ; 0     ;
++----------------------------------------------+-------+
+
+
++------------------------------------------------+
+; Registers Packed Into Inferred Megafunctions   ;
++---------------------+-------------------+------+
+; Register Name       ; Megafunction      ; Type ;
++---------------------+-------------------+------+
+; RAM:MEM|dout[0..15] ; RAM:MEM|mem_rtl_0 ; RAM  ;
++---------------------+-------------------+------+
+
+
++--------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Multiplexer Restructuring Statistics (Restructuring Performed)                                                                                                           ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+------------------------------------------------------------+
+; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output                                 ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+------------------------------------------------------------+
+; 4:1                ; 16 bits   ; 32 LEs        ; 32 LEs               ; 0 LEs                  ; Yes        ; |lab7_top|cpu:CPU|datapath:DP|vDFFenable:C_flip|Q[15]      ;
+; 5:1                ; 14 bits   ; 42 LEs        ; 28 LEs               ; 14 LEs                 ; No         ; |lab7_top|cpu:CPU|datapath:DP|Bin[14]                      ;
+; 8:1                ; 16 bits   ; 80 LEs        ; 80 LEs               ; 0 LEs                  ; No         ; |lab7_top|cpu:CPU|datapath:DP|regfile:REGFILE|data_out[15] ;
+; 4:1                ; 7 bits    ; 14 LEs        ; 14 LEs               ; 0 LEs                  ; No         ; |lab7_top|cpu:CPU|datapath:DP|data_in[9]                   ;
+; 4:1                ; 9 bits    ; 18 LEs        ; 18 LEs               ; 0 LEs                  ; No         ; |lab7_top|cpu:CPU|datapath:DP|data_in[3]                   ;
+; 4:1                ; 3 bits    ; 6 LEs         ; 6 LEs                ; 0 LEs                  ; No         ; |lab7_top|cpu:CPU|Selector9                                ;
+; 6:1                ; 2 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; No         ; |lab7_top|cpu:CPU|ns                                       ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+------------------------------------------------------------+
+
+
++------------------------------------------------------------------------------------+
+; Source assignments for RAM:MEM|altsyncram:mem_rtl_0|altsyncram_65r1:auto_generated ;
++---------------------------------+--------------------+------+----------------------+
+; Assignment                      ; Value              ; From ; To                   ;
++---------------------------------+--------------------+------+----------------------+
+; OPTIMIZE_POWER_DURING_SYNTHESIS ; NORMAL_COMPILATION ; -    ; -                    ;
++---------------------------------+--------------------+------+----------------------+
+
+
++-------------------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: cpu:CPU|vDFFenable:instructionRegister ;
++----------------+-------+------------------------------------------------------------+
+; Parameter Name ; Value ; Type                                                       ;
++----------------+-------+------------------------------------------------------------+
+; n              ; 16    ; Signed Integer                                             ;
++----------------+-------+------------------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++----------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: cpu:CPU|vDFFenable:dataAdress ;
++----------------+-------+---------------------------------------------------+
+; Parameter Name ; Value ; Type                                              ;
++----------------+-------+---------------------------------------------------+
+; n              ; 9     ; Signed Integer                                    ;
++----------------+-------+---------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++--------------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: cpu:CPU|vDFFenable:programCounter ;
++----------------+-------+-------------------------------------------------------+
+; Parameter Name ; Value ; Type                                                  ;
++----------------+-------+-------------------------------------------------------+
+; n              ; 9     ; Signed Integer                                        ;
++----------------+-------+-------------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++------------------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: cpu:CPU|datapath:DP|vDFFenable:A_flip ;
++----------------+-------+-----------------------------------------------------------+
+; Parameter Name ; Value ; Type                                                      ;
++----------------+-------+-----------------------------------------------------------+
+; n              ; 16    ; Signed Integer                                            ;
++----------------+-------+-----------------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++------------------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: cpu:CPU|datapath:DP|vDFFenable:B_flip ;
++----------------+-------+-----------------------------------------------------------+
+; Parameter Name ; Value ; Type                                                      ;
++----------------+-------+-----------------------------------------------------------+
+; n              ; 16    ; Signed Integer                                            ;
++----------------+-------+-----------------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++------------------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: cpu:CPU|datapath:DP|vDFFenable:C_flip ;
++----------------+-------+-----------------------------------------------------------+
+; Parameter Name ; Value ; Type                                                      ;
++----------------+-------+-----------------------------------------------------------+
+; n              ; 16    ; Signed Integer                                            ;
++----------------+-------+-----------------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++------------------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: cpu:CPU|datapath:DP|vDFFenable:Z_flip ;
++----------------+-------+-----------------------------------------------------------+
+; Parameter Name ; Value ; Type                                                      ;
++----------------+-------+-----------------------------------------------------------+
+; n              ; 1     ; Signed Integer                                            ;
++----------------+-------+-----------------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++------------------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: cpu:CPU|datapath:DP|vDFFenable:V_flip ;
++----------------+-------+-----------------------------------------------------------+
+; Parameter Name ; Value ; Type                                                      ;
++----------------+-------+-----------------------------------------------------------+
+; n              ; 1     ; Signed Integer                                            ;
++----------------+-------+-----------------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++------------------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: cpu:CPU|datapath:DP|vDFFenable:N_flip ;
++----------------+-------+-----------------------------------------------------------+
+; Parameter Name ; Value ; Type                                                      ;
++----------------+-------+-----------------------------------------------------------+
+; n              ; 1     ; Signed Integer                                            ;
++----------------+-------+-----------------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++------------------------------------------------------+
+; Parameter Settings for User Entity Instance: RAM:MEM ;
++----------------+----------+--------------------------+
+; Parameter Name ; Value    ; Type                     ;
++----------------+----------+--------------------------+
+; data_width     ; 16       ; Signed Integer           ;
+; addr_width     ; 8        ; Signed Integer           ;
+; filename       ; data.txt ; String                   ;
++----------------+----------+--------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++---------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: LEDout:LEDs|vDFFenable:LED_V ;
++----------------+-------+--------------------------------------------------+
+; Parameter Name ; Value ; Type                                             ;
++----------------+-------+--------------------------------------------------+
+; n              ; 1     ; Signed Integer                                   ;
++----------------+-------+--------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++------------------------------------------------------------------------------------------+
+; Parameter Settings for Inferred Entity Instance: RAM:MEM|altsyncram:mem_rtl_0            ;
++------------------------------------+------------------------------------+----------------+
+; Parameter Name                     ; Value                              ; Type           ;
++------------------------------------+------------------------------------+----------------+
+; BYTE_SIZE_BLOCK                    ; 8                                  ; Untyped        ;
+; AUTO_CARRY_CHAINS                  ; ON                                 ; AUTO_CARRY     ;
+; IGNORE_CARRY_BUFFERS               ; OFF                                ; IGNORE_CARRY   ;
+; AUTO_CASCADE_CHAINS                ; ON                                 ; AUTO_CASCADE   ;
+; IGNORE_CASCADE_BUFFERS             ; OFF                                ; IGNORE_CASCADE ;
+; WIDTH_BYTEENA                      ; 1                                  ; Untyped        ;
+; OPERATION_MODE                     ; DUAL_PORT                          ; Untyped        ;
+; WIDTH_A                            ; 16                                 ; Untyped        ;
+; WIDTHAD_A                          ; 8                                  ; Untyped        ;
+; NUMWORDS_A                         ; 256                                ; Untyped        ;
+; OUTDATA_REG_A                      ; UNREGISTERED                       ; Untyped        ;
+; ADDRESS_ACLR_A                     ; NONE                               ; Untyped        ;
+; OUTDATA_ACLR_A                     ; NONE                               ; Untyped        ;
+; WRCONTROL_ACLR_A                   ; NONE                               ; Untyped        ;
+; INDATA_ACLR_A                      ; NONE                               ; Untyped        ;
+; BYTEENA_ACLR_A                     ; NONE                               ; Untyped        ;
+; WIDTH_B                            ; 16                                 ; Untyped        ;
+; WIDTHAD_B                          ; 8                                  ; Untyped        ;
+; NUMWORDS_B                         ; 256                                ; Untyped        ;
+; INDATA_REG_B                       ; CLOCK1                             ; Untyped        ;
+; WRCONTROL_WRADDRESS_REG_B          ; CLOCK1                             ; Untyped        ;
+; RDCONTROL_REG_B                    ; CLOCK1                             ; Untyped        ;
+; ADDRESS_REG_B                      ; CLOCK0                             ; Untyped        ;
+; OUTDATA_REG_B                      ; UNREGISTERED                       ; Untyped        ;
+; BYTEENA_REG_B                      ; CLOCK1                             ; Untyped        ;
+; INDATA_ACLR_B                      ; NONE                               ; Untyped        ;
+; WRCONTROL_ACLR_B                   ; NONE                               ; Untyped        ;
+; ADDRESS_ACLR_B                     ; NONE                               ; Untyped        ;
+; OUTDATA_ACLR_B                     ; NONE                               ; Untyped        ;
+; RDCONTROL_ACLR_B                   ; NONE                               ; Untyped        ;
+; BYTEENA_ACLR_B                     ; NONE                               ; Untyped        ;
+; WIDTH_BYTEENA_A                    ; 1                                  ; Untyped        ;
+; WIDTH_BYTEENA_B                    ; 1                                  ; Untyped        ;
+; RAM_BLOCK_TYPE                     ; AUTO                               ; Untyped        ;
+; BYTE_SIZE                          ; 8                                  ; Untyped        ;
+; READ_DURING_WRITE_MODE_MIXED_PORTS ; OLD_DATA                           ; Untyped        ;
+; READ_DURING_WRITE_MODE_PORT_A      ; NEW_DATA_NO_NBE_READ               ; Untyped        ;
+; READ_DURING_WRITE_MODE_PORT_B      ; NEW_DATA_NO_NBE_READ               ; Untyped        ;
+; INIT_FILE                          ; db/lab7_top.ram0_RAM_15119.hdl.mif ; Untyped        ;
+; INIT_FILE_LAYOUT                   ; PORT_A                             ; Untyped        ;
+; MAXIMUM_DEPTH                      ; 0                                  ; Untyped        ;
+; CLOCK_ENABLE_INPUT_A               ; NORMAL                             ; Untyped        ;
+; CLOCK_ENABLE_INPUT_B               ; NORMAL                             ; Untyped        ;
+; CLOCK_ENABLE_OUTPUT_A              ; NORMAL                             ; Untyped        ;
+; CLOCK_ENABLE_OUTPUT_B              ; NORMAL                             ; Untyped        ;
+; CLOCK_ENABLE_CORE_A                ; USE_INPUT_CLKEN                    ; Untyped        ;
+; CLOCK_ENABLE_CORE_B                ; USE_INPUT_CLKEN                    ; Untyped        ;
+; ENABLE_ECC                         ; FALSE                              ; Untyped        ;
+; ECC_PIPELINE_STAGE_ENABLED         ; FALSE                              ; Untyped        ;
+; WIDTH_ECCSTATUS                    ; 3                                  ; Untyped        ;
+; DEVICE_FAMILY                      ; Cyclone V                          ; Untyped        ;
+; CBXI_PARAMETER                     ; altsyncram_65r1                    ; Untyped        ;
++------------------------------------+------------------------------------+----------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++--------------------------------------------------------------------------+
+; altsyncram Parameter Settings by Entity Instance                         ;
++-------------------------------------------+------------------------------+
+; Name                                      ; Value                        ;
++-------------------------------------------+------------------------------+
+; Number of entity instances                ; 1                            ;
+; Entity Instance                           ; RAM:MEM|altsyncram:mem_rtl_0 ;
+;     -- OPERATION_MODE                     ; DUAL_PORT                    ;
+;     -- WIDTH_A                            ; 16                           ;
+;     -- NUMWORDS_A                         ; 256                          ;
+;     -- OUTDATA_REG_A                      ; UNREGISTERED                 ;
+;     -- WIDTH_B                            ; 16                           ;
+;     -- NUMWORDS_B                         ; 256                          ;
+;     -- ADDRESS_REG_B                      ; CLOCK0                       ;
+;     -- OUTDATA_REG_B                      ; UNREGISTERED                 ;
+;     -- RAM_BLOCK_TYPE                     ; AUTO                         ;
+;     -- READ_DURING_WRITE_MODE_MIXED_PORTS ; OLD_DATA                     ;
++-------------------------------------------+------------------------------+
+
+
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "LEDout:LEDs|vDFFenable:LED_V"                                                                                                                                                    ;
++------+--------+----------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Port ; Type   ; Severity ; Details                                                                                                                                                                          ;
++------+--------+----------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Q    ; Output ; Warning  ; Output or bidir port (1 bits) is smaller than the port expression (16 bits) it drives.  The 15 most-significant bit(s) in the port expression will be connected to GND.          ;
+; Q[0] ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed.                                                                                              ;
+; D    ; Input  ; Warning  ; Input port expression (8 bits) is wider than the input port (1 bits) it drives.  The 7 most-significant bit(s) in the expression will be dangling if they have no other fanouts. ;
++------+--------+----------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+
++---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "LEDout:LEDs"                                                                                                                                                           ;
++------+--------+----------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Port ; Type   ; Severity ; Details                                                                                                                                                                ;
++------+--------+----------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; LEDR ; Output ; Warning  ; Output or bidir port (8 bits) is smaller than the port expression (10 bits) it drives.  The 2 most-significant bit(s) in the port expression will be connected to GND. ;
++------+--------+----------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+
++---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "switchReceiver:switches"                                                                                                                             ;
++----------+-------+----------+---------------------------------------------------------------------------------------------------------------------------------------------------+
+; Port     ; Type  ; Severity ; Details                                                                                                                                           ;
++----------+-------+----------+---------------------------------------------------------------------------------------------------------------------------------------------------+
+; mem_cmd  ; Input ; Warning  ; Input port expression (2 bits) is smaller than the input port (3 bits) it drives.  Extra input bit(s) "mem_cmd[2..2]" will be connected to GND.   ;
+; mem_addr ; Input ; Warning  ; Input port expression (9 bits) is smaller than the input port (10 bits) it drives.  Extra input bit(s) "mem_addr[9..9]" will be connected to GND. ;
++----------+-------+----------+---------------------------------------------------------------------------------------------------------------------------------------------------+
+
+
++-----------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "cpu:CPU|datapath:DP"                                                                 ;
++-------+--------+----------+-------------------------------------------------------------------------------------+
+; Port  ; Type   ; Severity ; Details                                                                             ;
++-------+--------+----------+-------------------------------------------------------------------------------------+
+; Z_out ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
+; N_out ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
+; V_out ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
++-------+--------+----------+-------------------------------------------------------------------------------------+
+
+
++-----------------------------------------------------+
+; Post-Synthesis Netlist Statistics for Top Partition ;
++-----------------------+-----------------------------+
+; Type                  ; Count                       ;
++-----------------------+-----------------------------+
+; arriav_lcell_comb     ; 1                           ;
+;     normal            ; 1                           ;
+;         0 data inputs ; 1                           ;
+; boundary_port         ; 66                          ;
+;                       ;                             ;
+; Max LUT depth         ; 0.00                        ;
+; Average LUT depth     ; 0.00                        ;
++-----------------------+-----------------------------+
+
+
++-------------------------------+
+; Elapsed Time Per Partition    ;
++----------------+--------------+
+; Partition Name ; Elapsed Time ;
++----------------+--------------+
+; Top            ; 00:00:00     ;
++----------------+--------------+
+
+
++-------------------------------+
+; Analysis & Synthesis Messages ;
++-------------------------------+
+Info: *******************************************************************
+Info: Running Quartus Prime Analysis & Synthesis
+    Info: Version 22.1std.2 Build 922 07/20/2023 SC Lite Edition
+    Info: Processing started: Mon Nov 27 20:23:30 2023
+Info: Command: quartus_map --read_settings_files=on --write_settings_files=off lab7 -c lab7_top
+Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
+Info (20030): Parallel compilation is enabled and will use 14 of the 14 processors detected
+Info (12021): Found 1 design units, including 1 entities, in source file shifter.sv
+    Info (12023): Found entity 1: shifter File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/shifter.sv Line: 7
+Info (12021): Found 1 design units, including 1 entities, in source file regfile.sv
+    Info (12023): Found entity 1: regfile File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/regfile.sv Line: 2
+Info (12021): Found 1 design units, including 1 entities, in source file memory.sv
+    Info (12023): Found entity 1: RAM File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/memory.sv Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file lab7_top_tb.sv
+    Info (12023): Found entity 1: lab7_top_tb File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/lab7_top_tb.sv Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file lab7_autograder_check.sv
+    Info (12023): Found entity 1: lab7_check_tb File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/lab7_autograder_check.sv Line: 15
+Info (12021): Found 1 design units, including 1 entities, in source file lab7-top-tb.sv
+    Info (12023): Found entity 1: lab7_tb File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/lab7-top-tb.sv Line: 7
+Info (12021): Found 1 design units, including 1 entities, in source file datapath.sv
+    Info (12023): Found entity 1: datapath File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/datapath.sv Line: 4
+Info (12021): Found 1 design units, including 1 entities, in source file cpu_tb.sv
+    Info (12023): Found entity 1: cpu_tb File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/cpu_tb.sv Line: 2
+Info (12021): Found 1 design units, including 1 entities, in source file cpu.sv
+    Info (12023): Found entity 1: cpu File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/cpu.sv Line: 34
+Info (12021): Found 1 design units, including 1 entities, in source file alu.sv
+    Info (12023): Found entity 1: ALU File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/alu.sv Line: 8
+Info (12021): Found 1 design units, including 1 entities, in source file instructiondecoder.v
+    Info (12023): Found entity 1: instructionDecoder File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/instructionDecoder.v Line: 9
+Info (12021): Found 5 design units, including 5 entities, in source file lab7-top.sv
+    Info (12023): Found entity 1: lab7_top File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/lab7-top.sv Line: 6
+    Info (12023): Found entity 2: vDFF File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/lab7-top.sv Line: 39
+    Info (12023): Found entity 3: vDFFenable File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/lab7-top.sv Line: 49
+    Info (12023): Found entity 4: switchReceiver File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/lab7-top.sv Line: 61
+    Info (12023): Found entity 5: LEDout File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/lab7-top.sv Line: 71
+Warning (10236): Verilog HDL Implicit Net warning at cpu.sv(64): created implicit net for "Z" File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/cpu.sv Line: 64
+Warning (10236): Verilog HDL Implicit Net warning at cpu.sv(65): created implicit net for "N" File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/cpu.sv Line: 65
+Warning (10236): Verilog HDL Implicit Net warning at cpu.sv(65): created implicit net for "V" File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/cpu.sv Line: 65
+Warning (10236): Verilog HDL Implicit Net warning at lab7-top.sv(81): created implicit net for "clk" File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/lab7-top.sv Line: 81
+Info (12127): Elaborating entity "lab7_top" for the top level hierarchy
+Warning (10034): Output port "HEX0" at lab7-top.sv(10) has no driver File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/lab7-top.sv Line: 10
+Warning (10034): Output port "HEX1" at lab7-top.sv(10) has no driver File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/lab7-top.sv Line: 10
+Warning (10034): Output port "HEX2" at lab7-top.sv(10) has no driver File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/lab7-top.sv Line: 10
+Warning (10034): Output port "HEX3" at lab7-top.sv(10) has no driver File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/lab7-top.sv Line: 10
+Warning (10034): Output port "HEX4" at lab7-top.sv(10) has no driver File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/lab7-top.sv Line: 10
+Warning (10034): Output port "HEX5" at lab7-top.sv(10) has no driver File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/lab7-top.sv Line: 10
+Info (12128): Elaborating entity "cpu" for hierarchy "cpu:CPU" File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/lab7-top.sv Line: 22
+Warning (10235): Verilog HDL Always Construct warning at cpu.sv(257): variable "Rn" is read inside the Always Construct but isn't in the Always Construct's Event Control File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/cpu.sv Line: 257
+Warning (10235): Verilog HDL Always Construct warning at cpu.sv(258): variable "Rn" is read inside the Always Construct but isn't in the Always Construct's Event Control File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/cpu.sv Line: 258
+Warning (10235): Verilog HDL Always Construct warning at cpu.sv(276): variable "Rm" is read inside the Always Construct but isn't in the Always Construct's Event Control File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/cpu.sv Line: 276
+Warning (10235): Verilog HDL Always Construct warning at cpu.sv(308): variable "Rd" is read inside the Always Construct but isn't in the Always Construct's Event Control File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/cpu.sv Line: 308
+Warning (10235): Verilog HDL Always Construct warning at cpu.sv(326): variable "Rm" is read inside the Always Construct but isn't in the Always Construct's Event Control File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/cpu.sv Line: 326
+Warning (10235): Verilog HDL Always Construct warning at cpu.sv(338): variable "Rn" is read inside the Always Construct but isn't in the Always Construct's Event Control File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/cpu.sv Line: 338
+Warning (10235): Verilog HDL Always Construct warning at cpu.sv(363): variable "Rd" is read inside the Always Construct but isn't in the Always Construct's Event Control File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/cpu.sv Line: 363
+Warning (10235): Verilog HDL Always Construct warning at cpu.sv(421): variable "Rn" is read inside the Always Construct but isn't in the Always Construct's Event Control File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/cpu.sv Line: 421
+Warning (10235): Verilog HDL Always Construct warning at cpu.sv(439): variable "Rn" is read inside the Always Construct but isn't in the Always Construct's Event Control File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/cpu.sv Line: 439
+Warning (10235): Verilog HDL Always Construct warning at cpu.sv(499): variable "Rd" is read inside the Always Construct but isn't in the Always Construct's Event Control File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/cpu.sv Line: 499
+Warning (10235): Verilog HDL Always Construct warning at cpu.sv(511): variable "Rn" is read inside the Always Construct but isn't in the Always Construct's Event Control File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/cpu.sv Line: 511
+Warning (10235): Verilog HDL Always Construct warning at cpu.sv(529): variable "Rn" is read inside the Always Construct but isn't in the Always Construct's Event Control File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/cpu.sv Line: 529
+Warning (10235): Verilog HDL Always Construct warning at cpu.sv(566): variable "Rd" is read inside the Always Construct but isn't in the Always Construct's Event Control File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/cpu.sv Line: 566
+Warning (10235): Verilog HDL Always Construct warning at cpu.sv(585): variable "Rn" is read inside the Always Construct but isn't in the Always Construct's Event Control File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/cpu.sv Line: 585
+Info (12128): Elaborating entity "vDFFenable" for hierarchy "cpu:CPU|vDFFenable:instructionRegister" File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/cpu.sv Line: 51
+Info (12128): Elaborating entity "vDFFenable" for hierarchy "cpu:CPU|vDFFenable:dataAdress" File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/cpu.sv Line: 52
+Info (12128): Elaborating entity "instructionDecoder" for hierarchy "cpu:CPU|instructionDecoder:INSTRUCTIONS" File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/cpu.sv Line: 60
+Info (12128): Elaborating entity "datapath" for hierarchy "cpu:CPU|datapath:DP" File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/cpu.sv Line: 65
+Warning (10230): Verilog HDL assignment warning at datapath.sv(19): truncated value with size 17 to match size of target (16) File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/datapath.sv Line: 19
+Info (12128): Elaborating entity "regfile" for hierarchy "cpu:CPU|datapath:DP|regfile:REGFILE" File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/datapath.sv Line: 26
+Info (12128): Elaborating entity "vDFFenable" for hierarchy "cpu:CPU|datapath:DP|vDFFenable:Z_flip" File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/datapath.sv Line: 38
+Info (12128): Elaborating entity "shifter" for hierarchy "cpu:CPU|datapath:DP|shifter:shifter" File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/datapath.sv Line: 43
+Info (12128): Elaborating entity "ALU" for hierarchy "cpu:CPU|datapath:DP|ALU:calculator" File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/datapath.sv Line: 54
+Info (12128): Elaborating entity "RAM" for hierarchy "RAM:MEM" File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/lab7-top.sv Line: 23
+Warning (10850): Verilog HDL warning at memory.sv(16): number of words (10) in memory file does not match the number of elements in the address range [0:255] File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/memory.sv Line: 16
+Info (12128): Elaborating entity "switchReceiver" for hierarchy "switchReceiver:switches" File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/lab7-top.sv Line: 25
+Info (12128): Elaborating entity "LEDout" for hierarchy "LEDout:LEDs" File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/lab7-top.sv Line: 26
+Warning (13046): Tri-state node(s) do not directly drive top-level pin(s)
+    Warning (13048): Converted tri-state node "read_data[15]" into a selector File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/lab7-top.sv Line: 56
+    Warning (13048): Converted tri-state node "read_data[14]" into a selector File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/lab7-top.sv Line: 56
+    Warning (13048): Converted tri-state node "read_data[13]" into a selector File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/lab7-top.sv Line: 56
+    Warning (13048): Converted tri-state node "read_data[12]" into a selector File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/lab7-top.sv Line: 56
+    Warning (13048): Converted tri-state node "read_data[11]" into a selector File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/lab7-top.sv Line: 56
+    Warning (13048): Converted tri-state node "read_data[10]" into a selector File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/lab7-top.sv Line: 56
+    Warning (13048): Converted tri-state node "read_data[9]" into a selector File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/lab7-top.sv Line: 56
+    Warning (13048): Converted tri-state node "read_data[8]" into a selector File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/lab7-top.sv Line: 56
+    Warning (13048): Converted tri-state node "read_data[7]" into a selector File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/lab7-top.sv Line: 56
+    Warning (13048): Converted tri-state node "read_data[6]" into a selector File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/lab7-top.sv Line: 56
+    Warning (13048): Converted tri-state node "read_data[5]" into a selector File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/lab7-top.sv Line: 56
+    Warning (13048): Converted tri-state node "read_data[4]" into a selector File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/lab7-top.sv Line: 56
+    Warning (13048): Converted tri-state node "read_data[3]" into a selector File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/lab7-top.sv Line: 56
+    Warning (13048): Converted tri-state node "read_data[2]" into a selector File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/lab7-top.sv Line: 56
+    Warning (13048): Converted tri-state node "read_data[1]" into a selector File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/lab7-top.sv Line: 56
+    Warning (13048): Converted tri-state node "read_data[0]" into a selector File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/lab7-top.sv Line: 56
+Info (19000): Inferred 1 megafunctions from design logic
+    Info (276029): Inferred altsyncram megafunction from the following design logic: "RAM:MEM|mem_rtl_0" 
+        Info (286033): Parameter OPERATION_MODE set to DUAL_PORT
+        Info (286033): Parameter WIDTH_A set to 16
+        Info (286033): Parameter WIDTHAD_A set to 8
+        Info (286033): Parameter NUMWORDS_A set to 256
+        Info (286033): Parameter WIDTH_B set to 16
+        Info (286033): Parameter WIDTHAD_B set to 8
+        Info (286033): Parameter NUMWORDS_B set to 256
+        Info (286033): Parameter ADDRESS_ACLR_A set to NONE
+        Info (286033): Parameter OUTDATA_REG_B set to UNREGISTERED
+        Info (286033): Parameter ADDRESS_ACLR_B set to NONE
+        Info (286033): Parameter OUTDATA_ACLR_B set to NONE
+        Info (286033): Parameter ADDRESS_REG_B set to CLOCK0
+        Info (286033): Parameter INDATA_ACLR_A set to NONE
+        Info (286033): Parameter WRCONTROL_ACLR_A set to NONE
+        Info (286033): Parameter INIT_FILE set to db/lab7_top.ram0_RAM_15119.hdl.mif
+        Info (286033): Parameter READ_DURING_WRITE_MODE_MIXED_PORTS set to OLD_DATA
+Info (12130): Elaborated megafunction instantiation "RAM:MEM|altsyncram:mem_rtl_0"
+Info (12133): Instantiated megafunction "RAM:MEM|altsyncram:mem_rtl_0" with the following parameter:
+    Info (12134): Parameter "OPERATION_MODE" = "DUAL_PORT"
+    Info (12134): Parameter "WIDTH_A" = "16"
+    Info (12134): Parameter "WIDTHAD_A" = "8"
+    Info (12134): Parameter "NUMWORDS_A" = "256"
+    Info (12134): Parameter "WIDTH_B" = "16"
+    Info (12134): Parameter "WIDTHAD_B" = "8"
+    Info (12134): Parameter "NUMWORDS_B" = "256"
+    Info (12134): Parameter "ADDRESS_ACLR_A" = "NONE"
+    Info (12134): Parameter "OUTDATA_REG_B" = "UNREGISTERED"
+    Info (12134): Parameter "ADDRESS_ACLR_B" = "NONE"
+    Info (12134): Parameter "OUTDATA_ACLR_B" = "NONE"
+    Info (12134): Parameter "ADDRESS_REG_B" = "CLOCK0"
+    Info (12134): Parameter "INDATA_ACLR_A" = "NONE"
+    Info (12134): Parameter "WRCONTROL_ACLR_A" = "NONE"
+    Info (12134): Parameter "INIT_FILE" = "db/lab7_top.ram0_RAM_15119.hdl.mif"
+    Info (12134): Parameter "READ_DURING_WRITE_MODE_MIXED_PORTS" = "OLD_DATA"
+Info (12021): Found 1 design units, including 1 entities, in source file db/altsyncram_65r1.tdf
+    Info (12023): Found entity 1: altsyncram_65r1 File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/db/altsyncram_65r1.tdf Line: 28
+Warning (14284): Synthesized away the following node(s):
+    Warning (14285): Synthesized away the following RAM node(s):
+        Warning (14320): Synthesized away node "RAM:MEM|altsyncram:mem_rtl_0|altsyncram_65r1:auto_generated|ram_block1a0" File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/db/altsyncram_65r1.tdf Line: 38
+        Warning (14320): Synthesized away node "RAM:MEM|altsyncram:mem_rtl_0|altsyncram_65r1:auto_generated|ram_block1a1" File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/db/altsyncram_65r1.tdf Line: 68
+        Warning (14320): Synthesized away node "RAM:MEM|altsyncram:mem_rtl_0|altsyncram_65r1:auto_generated|ram_block1a2" File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/db/altsyncram_65r1.tdf Line: 98
+        Warning (14320): Synthesized away node "RAM:MEM|altsyncram:mem_rtl_0|altsyncram_65r1:auto_generated|ram_block1a3" File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/db/altsyncram_65r1.tdf Line: 128
+        Warning (14320): Synthesized away node "RAM:MEM|altsyncram:mem_rtl_0|altsyncram_65r1:auto_generated|ram_block1a4" File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/db/altsyncram_65r1.tdf Line: 158
+        Warning (14320): Synthesized away node "RAM:MEM|altsyncram:mem_rtl_0|altsyncram_65r1:auto_generated|ram_block1a5" File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/db/altsyncram_65r1.tdf Line: 188
+        Warning (14320): Synthesized away node "RAM:MEM|altsyncram:mem_rtl_0|altsyncram_65r1:auto_generated|ram_block1a6" File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/db/altsyncram_65r1.tdf Line: 218
+        Warning (14320): Synthesized away node "RAM:MEM|altsyncram:mem_rtl_0|altsyncram_65r1:auto_generated|ram_block1a7" File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/db/altsyncram_65r1.tdf Line: 248
+        Warning (14320): Synthesized away node "RAM:MEM|altsyncram:mem_rtl_0|altsyncram_65r1:auto_generated|ram_block1a8" File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/db/altsyncram_65r1.tdf Line: 278
+        Warning (14320): Synthesized away node "RAM:MEM|altsyncram:mem_rtl_0|altsyncram_65r1:auto_generated|ram_block1a9" File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/db/altsyncram_65r1.tdf Line: 308
+        Warning (14320): Synthesized away node "RAM:MEM|altsyncram:mem_rtl_0|altsyncram_65r1:auto_generated|ram_block1a10" File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/db/altsyncram_65r1.tdf Line: 338
+        Warning (14320): Synthesized away node "RAM:MEM|altsyncram:mem_rtl_0|altsyncram_65r1:auto_generated|ram_block1a11" File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/db/altsyncram_65r1.tdf Line: 368
+        Warning (14320): Synthesized away node "RAM:MEM|altsyncram:mem_rtl_0|altsyncram_65r1:auto_generated|ram_block1a12" File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/db/altsyncram_65r1.tdf Line: 398
+        Warning (14320): Synthesized away node "RAM:MEM|altsyncram:mem_rtl_0|altsyncram_65r1:auto_generated|ram_block1a13" File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/db/altsyncram_65r1.tdf Line: 428
+        Warning (14320): Synthesized away node "RAM:MEM|altsyncram:mem_rtl_0|altsyncram_65r1:auto_generated|ram_block1a14" File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/db/altsyncram_65r1.tdf Line: 458
+        Warning (14320): Synthesized away node "RAM:MEM|altsyncram:mem_rtl_0|altsyncram_65r1:auto_generated|ram_block1a15" File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/db/altsyncram_65r1.tdf Line: 488
+Warning (12241): 3 hierarchies have connectivity warnings - see the Connectivity Checks report folder
+Warning (13024): Output pins are stuck at VCC or GND
+    Warning (13410): Pin "LEDR[0]" is stuck at GND File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/lab7-top.sv Line: 9
+    Warning (13410): Pin "LEDR[1]" is stuck at GND File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/lab7-top.sv Line: 9
+    Warning (13410): Pin "LEDR[2]" is stuck at GND File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/lab7-top.sv Line: 9
+    Warning (13410): Pin "LEDR[3]" is stuck at GND File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/lab7-top.sv Line: 9
+    Warning (13410): Pin "LEDR[4]" is stuck at GND File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/lab7-top.sv Line: 9
+    Warning (13410): Pin "LEDR[5]" is stuck at GND File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/lab7-top.sv Line: 9
+    Warning (13410): Pin "LEDR[6]" is stuck at GND File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/lab7-top.sv Line: 9
+    Warning (13410): Pin "LEDR[7]" is stuck at GND File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/lab7-top.sv Line: 9
+    Warning (13410): Pin "LEDR[8]" is stuck at GND File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/lab7-top.sv Line: 9
+    Warning (13410): Pin "LEDR[9]" is stuck at GND File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/lab7-top.sv Line: 9
+    Warning (13410): Pin "HEX0[0]" is stuck at GND File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/lab7-top.sv Line: 10
+    Warning (13410): Pin "HEX0[1]" is stuck at GND File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/lab7-top.sv Line: 10
+    Warning (13410): Pin "HEX0[2]" is stuck at GND File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/lab7-top.sv Line: 10
+    Warning (13410): Pin "HEX0[3]" is stuck at GND File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/lab7-top.sv Line: 10
+    Warning (13410): Pin "HEX0[4]" is stuck at GND File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/lab7-top.sv Line: 10
+    Warning (13410): Pin "HEX0[5]" is stuck at GND File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/lab7-top.sv Line: 10
+    Warning (13410): Pin "HEX0[6]" is stuck at GND File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/lab7-top.sv Line: 10
+    Warning (13410): Pin "HEX1[0]" is stuck at GND File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/lab7-top.sv Line: 10
+    Warning (13410): Pin "HEX1[1]" is stuck at GND File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/lab7-top.sv Line: 10
+    Warning (13410): Pin "HEX1[2]" is stuck at GND File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/lab7-top.sv Line: 10
+    Warning (13410): Pin "HEX1[3]" is stuck at GND File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/lab7-top.sv Line: 10
+    Warning (13410): Pin "HEX1[4]" is stuck at GND File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/lab7-top.sv Line: 10
+    Warning (13410): Pin "HEX1[5]" is stuck at GND File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/lab7-top.sv Line: 10
+    Warning (13410): Pin "HEX1[6]" is stuck at GND File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/lab7-top.sv Line: 10
+    Warning (13410): Pin "HEX2[0]" is stuck at GND File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/lab7-top.sv Line: 10
+    Warning (13410): Pin "HEX2[1]" is stuck at GND File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/lab7-top.sv Line: 10
+    Warning (13410): Pin "HEX2[2]" is stuck at GND File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/lab7-top.sv Line: 10
+    Warning (13410): Pin "HEX2[3]" is stuck at GND File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/lab7-top.sv Line: 10
+    Warning (13410): Pin "HEX2[4]" is stuck at GND File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/lab7-top.sv Line: 10
+    Warning (13410): Pin "HEX2[5]" is stuck at GND File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/lab7-top.sv Line: 10
+    Warning (13410): Pin "HEX2[6]" is stuck at GND File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/lab7-top.sv Line: 10
+    Warning (13410): Pin "HEX3[0]" is stuck at GND File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/lab7-top.sv Line: 10
+    Warning (13410): Pin "HEX3[1]" is stuck at GND File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/lab7-top.sv Line: 10
+    Warning (13410): Pin "HEX3[2]" is stuck at GND File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/lab7-top.sv Line: 10
+    Warning (13410): Pin "HEX3[3]" is stuck at GND File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/lab7-top.sv Line: 10
+    Warning (13410): Pin "HEX3[4]" is stuck at GND File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/lab7-top.sv Line: 10
+    Warning (13410): Pin "HEX3[5]" is stuck at GND File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/lab7-top.sv Line: 10
+    Warning (13410): Pin "HEX3[6]" is stuck at GND File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/lab7-top.sv Line: 10
+    Warning (13410): Pin "HEX4[0]" is stuck at GND File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/lab7-top.sv Line: 10
+    Warning (13410): Pin "HEX4[1]" is stuck at GND File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/lab7-top.sv Line: 10
+    Warning (13410): Pin "HEX4[2]" is stuck at GND File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/lab7-top.sv Line: 10
+    Warning (13410): Pin "HEX4[3]" is stuck at GND File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/lab7-top.sv Line: 10
+    Warning (13410): Pin "HEX4[4]" is stuck at GND File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/lab7-top.sv Line: 10
+    Warning (13410): Pin "HEX4[5]" is stuck at GND File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/lab7-top.sv Line: 10
+    Warning (13410): Pin "HEX4[6]" is stuck at GND File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/lab7-top.sv Line: 10
+    Warning (13410): Pin "HEX5[0]" is stuck at GND File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/lab7-top.sv Line: 10
+    Warning (13410): Pin "HEX5[1]" is stuck at GND File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/lab7-top.sv Line: 10
+    Warning (13410): Pin "HEX5[2]" is stuck at GND File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/lab7-top.sv Line: 10
+    Warning (13410): Pin "HEX5[3]" is stuck at GND File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/lab7-top.sv Line: 10
+    Warning (13410): Pin "HEX5[4]" is stuck at GND File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/lab7-top.sv Line: 10
+    Warning (13410): Pin "HEX5[5]" is stuck at GND File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/lab7-top.sv Line: 10
+    Warning (13410): Pin "HEX5[6]" is stuck at GND File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/lab7-top.sv Line: 10
+Info (17049): 242 registers lost all their fanouts during netlist optimizations.
+Info (144001): Generated suppressed messages file C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/output_files/lab7_top.map.smsg
+Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
+    Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
+Warning (21074): Design contains 14 input pin(s) that do not drive logic
+    Warning (15610): No output dependent on input pin "KEY[2]" File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/lab7-top.sv Line: 7
+    Warning (15610): No output dependent on input pin "KEY[3]" File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/lab7-top.sv Line: 7
+    Warning (15610): No output dependent on input pin "SW[8]" File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/lab7-top.sv Line: 8
+    Warning (15610): No output dependent on input pin "SW[9]" File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/lab7-top.sv Line: 8
+    Warning (15610): No output dependent on input pin "KEY[0]" File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/lab7-top.sv Line: 7
+    Warning (15610): No output dependent on input pin "KEY[1]" File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/lab7-top.sv Line: 7
+    Warning (15610): No output dependent on input pin "SW[3]" File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/lab7-top.sv Line: 8
+    Warning (15610): No output dependent on input pin "SW[4]" File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/lab7-top.sv Line: 8
+    Warning (15610): No output dependent on input pin "SW[0]" File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/lab7-top.sv Line: 8
+    Warning (15610): No output dependent on input pin "SW[1]" File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/lab7-top.sv Line: 8
+    Warning (15610): No output dependent on input pin "SW[2]" File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/lab7-top.sv Line: 8
+    Warning (15610): No output dependent on input pin "SW[5]" File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/lab7-top.sv Line: 8
+    Warning (15610): No output dependent on input pin "SW[6]" File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/lab7-top.sv Line: 8
+    Warning (15610): No output dependent on input pin "SW[7]" File: C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/lab7-top.sv Line: 8
+Info (21057): Implemented 66 device resources after synthesis - the final resource count might be different
+    Info (21058): Implemented 14 input pins
+    Info (21059): Implemented 52 output pins
+Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 131 warnings
+    Info: Peak virtual memory: 4817 megabytes
+    Info: Processing ended: Mon Nov 27 20:23:36 2023
+    Info: Elapsed time: 00:00:06
+    Info: Total CPU time (on all processors): 00:00:06
+
+
++------------------------------------------+
+; Analysis & Synthesis Suppressed Messages ;
++------------------------------------------+
+The suppressed messages can be found in C:/Users/smacg/OneDrive - UBC/Desktop/CPEN211/Lab7-CPEN211/output_files/lab7_top.map.smsg.
+
+
