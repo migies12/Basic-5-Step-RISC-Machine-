@@ -1,0 +1,4 @@
+Partner 2: Did most of the memory unit integration and lab top
+Partner 1: Did the additional states and changes to CPU  (LDR, STR, Halt) and testbenches
+Overall, did all the debugging together and checked and added extra items to the testbenches 
+Tried stage 3 together, ran out of time
