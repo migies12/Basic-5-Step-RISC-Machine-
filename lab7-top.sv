@@ -14,7 +14,7 @@
 `define H9 7'b0010000
 `define HA 7'b0001000
 `define HB 7'b0000011
-`define HC 7'b0000110
+`define HC 7'b1000110
 `define HD 7'b0100001
 `define HE 7'b0000110
 `define HF 7'b0001110
@@ -32,10 +32,10 @@ module lab7_top(KEY,SW,LEDR,HEX0,HEX1,HEX2,HEX3,HEX4,HEX5);
     reg [7:0] write_adress, read_adress;
     //reg N, V, Z, w;
 
-    sseg H0(dout[3:0],   HEX0);
-    sseg H1(dout[7:4],   HEX1);
-    sseg H2(dout[11:8],  HEX2);
-    sseg H3(dout[15:12], HEX3);
+    sseg H0(read_data[3:0],   HEX0);
+    sseg H1(read_data[7:4],   HEX1);
+    sseg H2(read_data[11:8],  HEX2);
+    sseg H3(read_data[15:12], HEX3);
 
     reg clk, reset, msel, msel_a, msel_b, ssel_a, ssel_b, ssel;
     reg write;
