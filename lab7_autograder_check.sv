@@ -4,6 +4,14 @@
 // You are responsible for designing your own test benches to verify you 
 // match the specification given in the lab handout.
 
+///FOR DATA.txt file
+// @00 1101000000000101
+// @01 0110000000100000
+// @02 1101001000000110
+// @03 1000001000100000
+// @04 1110000000000000
+// @05 1010101111001101
+
 module lab7_check_tb;
   reg [3:0] KEY;
   reg [9:0] SW;

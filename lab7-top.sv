@@ -20,7 +20,7 @@ module lab7_top(KEY,SW,LEDR,HEX0,HEX1,HEX2,HEX3,HEX4,HEX5);
     reg [15:0] read_data, write_data, mdata;
 
     cpu CPU(.clk(clk), .reset(reset), .read_data(read_data), .mem_cmd(mem_cmd), .mem_addr(mem_addr), .write_data(write_data));
-    RAM MEM (.clk(clk), .read_adress(mem_addr[7:0]), .write_adress(mem_addr[7:0]) , .write(write), .din(write_data), .dout(dout));
+    RAM MEM(.clk(clk), .read_adress(mem_addr[7:0]), .write_adress(mem_addr[7:0]) , .write(write), .din(write_data), .dout(dout));
  
     assign clk = ~KEY[0];
     assign reset = ~KEY[1];

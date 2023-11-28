@@ -166,6 +166,23 @@ end //end always_ff
 
 //conditional always block for sending info to datapath 
 always@(ns) begin 
+	reset_pc = 0;
+    write = 0;
+    loada = 0;
+    loadb = 0;
+    loadc = 0;
+    loads = 0;
+    asel = 0;
+    bsel = 0;
+    vsel = 2'b00;
+    addr_sel = 0;
+    mem_cmd = 0;
+    load_ir = 0;
+    load_pc = 0;
+    writeNum = 0;
+    readNum = 0;
+    load_addr = 0;
+	
 	case(ns)
 		`RST: begin 
 			reset_pc <= 1;
@@ -600,7 +617,17 @@ always@(ns) begin
     		load_pc <= 0;
 		end
 
-		default: write <= 0;
+		default: begin
+			write <= 0;
+			reset_pc <= 0;
+			vsel <= 0;
+			addr_sel <= 0;
+			mem_cmd <= 0;
+			load_ir <= 0;
+			writeNum <= 0;
+			readNum <= 0;
+			load_addr <= 0;
+		end
 	
 	endcase
 
