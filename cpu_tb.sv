@@ -37,7 +37,6 @@ sim_read_data = 16'b1101000000000111;
 
 #30
 
-
 $display("Test 1 - Attempt ot run command %b - MOV R0, #7; -OUTPUT: %b  -Expected: %b", sim_read_data, sim_write_data, 16'b0);
 	
 	if(~(sim_write_data == 16'b0)) err = 1;
