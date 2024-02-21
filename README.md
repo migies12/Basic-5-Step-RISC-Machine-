@@ -22,21 +22,23 @@ The Arithmetic Logic Unit (ALU) module (alu.sv) performs arithmetic and logical 
 The shifter.sv module handles shifting operations based on the opcode of the instruction being executed. It manipulates the bits of data as needed during processing.
 
 ### 5. datapath.sv
-The datapath.sv module acts as the backbone of the system, connecting the various hardware components together to ensure proper flow of data and control signals between stages.
+The datapath.sv module acts as the backbone of the system, connecting the various hardware components together to ensure the proper flow of data and control signals between stages.
 
 ## How It Works
 
 The CPU module (cpu.sv) orchestrates the movement of instructions through the pipeline. Each clock cycle advances the pipeline by one stage, starting from instruction fetch and ending with writeback.
 
-Instruction Fetch (IF): The CPU fetches the next instruction from memory.<br>
-Instruction Decode (ID): The fetched instruction is decoded, determining the operation to be performed and identifying the operands.<br>
-Execute (EX): The ALU performs the specified operation on the operands.<br>
-Memory Access (MEM): If required, data is accessed from or written to memory.<br>
-Writeback (WB): The result of the operation is written back to the register file.<br>
+### Instruction Fetch (IF): The CPU fetches the next instruction from memory.<br>
+### Instruction Decode (ID): The fetched instruction is decoded, determining the operation to be performed and identifying the operands.<br>
+### Execute (EX): The ALU performs the specified operation on the operands.<br>
+### Memory Access (MEM): If required, data is accessed from or written to memory.<br>
+### Writeback (WB): The result of the operation is written back to the register file.<br>
 
-Getting Started
+## Getting Started
+
 To simulate or synthesize the RISC machine, you can use any Verilog simulation or synthesis toolchain. Ensure all Verilog files are included in your project, and instantiate the cpu module in your top-level design.
 
-Contributions
-Contributions to this project are welcome! Feel free to fork the repository, make changes, and submit pull requests. If you encounter any issues or have suggestions for improvement, please open an issue.
+## Contributions
+
+Sarah Macgillivray and Miguel Menard both contributed equally to this project.
 
