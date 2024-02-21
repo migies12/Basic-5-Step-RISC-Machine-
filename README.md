@@ -1,4 +1,4 @@
-Basic 5-Step RISC Machine for Instruction Processing
+# Basic 5-Step RISC Machine for Instruction Processing
 This repository contains a basic implementation of a 5-step Reduced Instruction Set Computing (RISC) machine. The machine follows the classic pipeline architecture consisting of the following stages:
 
 Instruction Fetch (IF)
