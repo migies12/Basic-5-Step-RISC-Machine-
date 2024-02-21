@@ -1,60 +1,40 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-24ddc0f5d75046c5622901739e7c5dd533143b0c8e959d652212380cedb1ea36.svg)](https://classroom.github.com/a/hfeqw4fM)
-[![Open in Visual Studio Code](https://classroom.github.com/assets/open-in-vscode-718a45dd9cf7e7f842a935f5ebbe5719a5e09af4491e668f4dbf3b35d5cca122.svg)](https://classroom.github.com/online_ide?assignment_repo_id=13003571&assignment_repo_type=AssignmentRepo)
-# starter-lab-7
+Basic 5-Step RISC Machine for Instruction Processing
+This repository contains a basic implementation of a 5-step Reduced Instruction Set Computing (RISC) machine. The machine follows the classic pipeline architecture consisting of the following stages:
 
-See the Lab 7 handout on Piazza for details of what you need to do and what files
-need to be included.  
+Instruction Fetch (IF)
+Instruction Decode (ID)
+Execute (EX)
+Memory Access (MEM)
+Writeback (WB)
+Each stage is implemented using Verilog modules and connected together to form a complete datapath for instruction processing.
 
-The directory "assembler" includes source code for 'sas', a program you can use
-to automatically convert assembly code into programs to load into memory.  See
-further details in assembler/README.txt.  To build 'sas' from the provided source
-on your Windows computer, you may need to install cygwin.  Instructions for doing
-this can be found in the file cygwinlab7.pdf availalbe on Piazza.
+Files
+1. cpu.sv
+This file contains the state machine representing the central processing unit (CPU). It controls the flow of instructions through the pipeline stages.
 
-DE1_SoC.qsf includes pins assignments (import in Quartus before synthesis using the 
-same procedure used for pb-pins.csv outline in the HDL tutorial). Do not modify this
-file.
+2. regfile.sv
+The regfile.sv module represents the register file of the processor. It consists of 8 registers implemented using flip flops, providing storage for intermediate results and operands.
 
-You will need to create your own lab7_top.sv to demo/test your design on your
-DE1-SoC.
+3. alu.sv
+The Arithmetic Logic Unit (ALU) module (alu.sv) performs arithmetic and logical operations required by the instructions being processed.
 
-Use lab7_autograder_check.sv to test your code is compatible with the
-autograder that will be used to assign marks for your submission.  WARNING: The
-purpose of the checker file is NOT to tell you if your code is ``correct''.  If
-your code does not passing the checks in this file means your code will
-certainly get zero marks for the autograded portion.  Passing the checks in
-this file DOES NOT mean your code will get full marks.  Your code can pass
-these checks and get zero marks.  You still need to test your code using your
-own test benches!
+4. shifter.sv
+The shifter.sv module handles shifting operations based on the opcode of the instruction being executed. It manipulates the bits of data as needed during processing.
 
-Below is a (potentially incomplete) summary of files you need to add (check the 
-lab 5, 6 and 7 handout instructions for details on what goes in these and any other
-necessary files):
+5. datapath.sv
+The datapath.sv module acts as the backbone of the system, connecting the various hardware components together to ensure proper flow of data and control signals between stages.
 
-1. Your synthesizable and testbench code in files named:
-- cpu.sv
-- cpu_tb.sv
-- regfile.sv
-- alu.sv
-- shifter.sv
-- datapath.sv
-- datapath_tb.sv
+How It Works
+The CPU module (cpu.sv) orchestrates the movement of instructions through the pipeline. Each clock cycle advances the pipeline by one stage, starting from instruction fetch and ending with writeback.
 
-You can also include additional (system)verilog files for the logic instantiated in cpu.sv
-(e.g., for your controller and/or instruction register).
+Instruction Fetch (IF): The CPU fetches the next instruction from memory.
+Instruction Decode (ID): The fetched instruction is decoded, determining the operation to be performed and identifying the operands.
+Execute (EX): The ALU performs the specified operation on the operands.
+Memory Access (MEM): If required, data is accessed from or written to memory.
+Writeback (WB): The result of the operation is written back to the register file.
+Getting Started
+To simulate or synthesize the RISC machine, you can use any Verilog simulation or synthesis toolchain. Ensure all Verilog files are included in your project, and instantiate the cpu module in your top-level design.
 
-2. A Quartus Project File (.qpf) and the associated Quartus Settings File
-   (.qsf) that indicates which Verilog files are part of your project when
-compiling for your DE1-SoC. This .qsf file is created by Quartus when you
-create a project.  It is typically named <top_leve_module_name>.qsf (e.g.,
-lab6_top.qsf) and contains lines indicating which Verilog files are to be
-synthesized.
-
-2. A Modelsim Project File (.mpf) for your testbench simulations including
-all synthesizable code files.
-
-3. The binary output file (.sof), generated from your synthesizable SystemVerilog
- used to program your DE1-SoC.  Your TAs may ask you to use the .sof generated when the 
-autograder synthesizes your design, if we have it available in time. However, include
-the one you generated as a backup to speed up the marking process during your demo.  
+Contributions
+Contributions to this project are welcome! Feel free to fork the repository, make changes, and submit pull requests. If you encounter any issues or have suggestions for improvement, please open an issue.
 
